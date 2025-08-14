@@ -20,10 +20,15 @@ namespace InventoryDemo.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private CharacterControllerProperties movementProperties;
+        [SerializeField] private Animator animator;
+
+        private readonly int attackTriggerID = Animator.StringToHash("Attack");
+        private readonly int isMovingID = Animator.StringToHash("IsMoving");
+        
         private CharacterController characterController;
         private CameraController cameraController;
         private DefaultInputActions actions;
-
+        
         private void Start()
         {
             characterController = EnsureComponentExists<CharacterController>();
@@ -61,8 +66,6 @@ namespace InventoryDemo.Player
         
         private void Move(Vector2 input)
         {
-            Debug.Log($"Movement: {input}");
-            
             Vector3 direction = cameraController.GetForward() * input.y + cameraController.GetRight() * input.x;
 
             // Don't allow rotation to snap back to 0 when there is no input
@@ -71,6 +74,11 @@ namespace InventoryDemo.Player
                 float yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, movementProperties.CharacterRotationSpeed * Time.deltaTime);
+                animator.SetBool(isMovingID, true);
+            }
+            else // Not moving
+            {
+                animator.SetBool(isMovingID, false);
             }
 
             characterController.SimpleMove(direction * movementProperties.MoveSpeed);
@@ -79,8 +87,7 @@ namespace InventoryDemo.Player
         
         private void OnAttack(InputAction.CallbackContext obj)
         {
-            throw new NotImplementedException();
+            animator.SetTrigger(attackTriggerID);
         }
-
     }
 }
