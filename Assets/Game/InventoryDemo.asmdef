@@ -1,3 +1,14 @@
 {
-	"name": "InventoryDemo"
+    "name": "InventoryDemo",
+    "rootNamespace": "InventoryDemo",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

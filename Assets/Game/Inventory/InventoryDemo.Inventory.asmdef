@@ -1,3 +1,14 @@
 {
-	"name": "InventoryDemo.Inventory"
+    "name": "InventoryDemo.Inventory",
+    "rootNamespace": "InventoryDemo.Inventory",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

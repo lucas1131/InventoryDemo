@@ -20,6 +20,8 @@ namespace InventoryDemo.Player
         private float yaw;
         private float pitch;
         private float distance = 3f;
+        
+        public bool AllowRotation { get; set; } 
 
         private void Start()
         {
@@ -27,6 +29,8 @@ namespace InventoryDemo.Player
             {
                 targetCamera ??= Camera.main.transform;
             }
+
+            UnlockRotationAndHideMouse();
         }
 
         private void OnValidate()
@@ -42,8 +46,27 @@ namespace InventoryDemo.Player
             if (pivot != null)
             {
                 FollowTarget();
-                RotateAroundTarget();
+                if(AllowRotation) RotateAroundTarget();
             }
+        }
+        
+        public Vector3 GetForward() => pivot.forward;
+        public Vector3 GetRight() => pivot.right;
+        public void SetMouseLockMode(CursorLockMode mode)
+        {
+            Cursor.lockState = mode;
+        }
+
+        public void LockRotationAndShowMouse()
+        {
+            SetMouseLockMode(CursorLockMode.Confined);
+            AllowRotation = false;
+        }
+        
+        public void UnlockRotationAndHideMouse()
+        {
+            SetMouseLockMode(CursorLockMode.Locked);
+            AllowRotation = true;
         }
         
         public void Look(Vector2 lookInput)
