@@ -8,10 +8,12 @@ namespace InventoryDemo.Player
     public struct CharacterControllerProperties
     {
         [SerializeField] [Range(1f, 5f)] public float MoveSpeed;
+        [SerializeField] [Range(1f, 15f)] public float CharacterRotationSpeed;
 
-        public CharacterControllerProperties(float moveSpeed)
+        public CharacterControllerProperties(float moveSpeed, float characterRotationSpeed)
         {
             MoveSpeed = moveSpeed;
+            CharacterRotationSpeed = characterRotationSpeed;
         }
     }
 
@@ -29,6 +31,7 @@ namespace InventoryDemo.Player
 
             actions = new DefaultInputActions();
             actions.Player.Look.performed += OnLook;
+            actions.Player.Fire.performed += OnAttack;
             actions.Enable();
         }
 
@@ -50,6 +53,7 @@ namespace InventoryDemo.Player
             return component;
         }
 
+        #region Movement
         private void OnLook(InputAction.CallbackContext action)
         {
             cameraController.Look(action.ReadValue<Vector2>());
@@ -61,14 +65,22 @@ namespace InventoryDemo.Player
             
             Vector3 direction = cameraController.GetForward() * input.y + cameraController.GetRight() * input.x;
 
-            // Dont allow rotation to snap back to 0 when there is no input
+            // Don't allow rotation to snap back to 0 when there is no input
             if (input.sqrMagnitude >= 0.0001)
             {
                 float yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+                Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, movementProperties.CharacterRotationSpeed * Time.deltaTime);
             }
 
             characterController.SimpleMove(direction * movementProperties.MoveSpeed);
         }
+        #endregion
+        
+        private void OnAttack(InputAction.CallbackContext obj)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
