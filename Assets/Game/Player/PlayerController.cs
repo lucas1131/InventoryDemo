@@ -27,8 +27,7 @@ namespace InventoryDemo.Player
         [SerializeField] private Animator animator;
         [SerializeField] private EquipSlot weaponSlot;
         [SerializeField] private EquipableItem editorDebugEquippedItemPrefab;
-        [SerializeField] private InputAction openInventoryAction;
-        [SerializeField] private InputAction closeInventoryAction;
+        [SerializeField] private InputActionAsset actionAsset;
 
         private readonly int attackTriggerID = Animator.StringToHash("Attack");
         private readonly int isMovingID = Animator.StringToHash("IsMoving");
@@ -38,8 +37,8 @@ namespace InventoryDemo.Player
         private PlayerAnimationEvents animationEventListener;
         private ItemPickuper itemPickuper;
         private Inventory inventory;
-        private DefaultInputActions builtinActions;
         private EquipableItem equippedItem;
+        private InputAction cachedMoveAction;
 
         private void Awake()
         {
@@ -55,16 +54,18 @@ namespace InventoryDemo.Player
         {
             itemPickuper.OnItemPickedUp += OnItemPickedUp;
 
-            builtinActions = new DefaultInputActions();
-            builtinActions.Player.Look.performed += OnLook;
-            builtinActions.Player.Fire.performed += OnAttackAction;
-            builtinActions.Enable();
+            actionAsset.FindActionMap("Player").FindAction("Look").performed += OnLook;
+            actionAsset.FindActionMap("Player").FindAction("Attack").performed += OnAttackAction;
+            cachedMoveAction = actionAsset.FindActionMap("Player").FindAction("Move");
+            actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
 
             animationEventListener.OnAttackStarted += AttackStarted;
             animationEventListener.OnAttackStarted += AttackEnded;
 
             SetupInventory();
             CreateEditorDebugEquipment();
+            
+            actionAsset.FindActionMap("Player").Enable();
         }
 
         private void CreateEditorDebugEquipment()
@@ -78,7 +79,7 @@ namespace InventoryDemo.Player
 
         private void Update()
         {
-            Move(builtinActions.Player.Move.ReadValue<Vector2>());
+            Move(cachedMoveAction.ReadValue<Vector2>());
 
             /* Debug */
             if (Input.GetKeyDown(KeyCode.K))

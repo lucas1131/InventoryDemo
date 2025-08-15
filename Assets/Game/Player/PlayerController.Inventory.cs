@@ -27,7 +27,7 @@ namespace InventoryDemo.Player
             
             SetupInventoryMenu(inventory.GetItems());
             SetupUIActions();
-            CloseInventory(default);
+            CloseInventory();
         }
 
         private static List<ItemData> LoadInventoryData()
@@ -55,8 +55,7 @@ namespace InventoryDemo.Player
 
         private void SetupUIActions()
         {
-            openInventoryAction.performed += OpenInventory;
-            closeInventoryAction.performed += CloseInventory;
+            // actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
         }
 
         private void UpdateSaveWithInventoryData()
@@ -66,15 +65,27 @@ namespace InventoryDemo.Player
             SaveManager.Save(data);
         }
 
-        private void OpenInventory(InputAction.CallbackContext _)
+        private void ToggleInventory(InputAction.CallbackContext _)
+        {
+            if (inventoryController.IsShowing)
+            {
+                CloseInventory();
+            }
+            else
+            {
+                OpenInventory();
+            }
+        }
+
+        private void OpenInventory()
         {
             inventoryController.Show();
             cameraController.LockRotationAndShowMouse();
         }
         
-        private void CloseInventory(InputAction.CallbackContext _)
+        private void CloseInventory()
         {
-            inventoryController.Show();
+            inventoryController.Hide();
             cameraController.UnlockRotationAndHideMouse();
         }
     }
