@@ -27,6 +27,18 @@ namespace InventoryDemo.Items
     {
         public int Amount;
         public ItemDefinition Data;
+        private Guid instanceId;
+
+        public Guid InstanceId
+        {
+            get
+            {
+                if (instanceId == Guid.Empty)
+                    instanceId = Guid.NewGuid();
+
+                return instanceId;
+            }
+        }
 
         public override int GetHashCode() => Data.Id;
         public override bool Equals(object obj) => obj is ItemData other && Equals(other);

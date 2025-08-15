@@ -1,9 +1,7 @@
-{
-    "name": "InventoryDemo.Items",
-    "rootNamespace": "InventoryDemo.Items",
+﻿{
+    "name": "InventoryDemo.Items.ItemData",
+    "rootNamespace": "InventoryDemo.Items.ItemData",
     "references": [
-        "InventoryDemo.Items.ItemData",
-        "InventoryDemo.SaveSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

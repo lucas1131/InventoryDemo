@@ -3,7 +3,7 @@
     "name": "InventoryDemo.Items.Editor",
     "rootNamespace": "InventoryDemo.Items.Editor",
     "references": [
-        "InventoryDemo.Items"
+        "InventoryDemo.Items.ItemData"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

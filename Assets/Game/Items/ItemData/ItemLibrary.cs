@@ -5,10 +5,16 @@ using UnityEngine;
 namespace InventoryDemo.Items
 {
     [CreateAssetMenu(fileName = "ItemLibrary", menuName = "InventoryDemo/ItemLibrary")]
-    public class ItemLibrary : ScriptableSingleton<ItemLibrary>
+    public class ItemLibrary : ScriptableObject
     {
         [SerializeField] private List<ItemAsset> items;
         private Dictionary<int, ItemAsset> itemTable;
+
+        public static ItemLibrary Instance { get; private set; } 
+        private ItemLibrary()
+        {
+            Instance = this;
+        }
 
         public ItemDefinition FindItem(int id)
         {

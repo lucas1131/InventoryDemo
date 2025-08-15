@@ -3,7 +3,9 @@
     "rootNamespace": "",
     "references": [
         "InventoryDemo.Items",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "InventoryDemo.InventorySystem",
+        "InventoryDemo.Items.ItemData"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
