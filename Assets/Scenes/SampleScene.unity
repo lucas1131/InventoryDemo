@@ -396,7 +396,6 @@ GameObject:
   m_Component:
   - component: {fileID: 382149958}
   - component: {fileID: 382149961}
-  - component: {fileID: 382149962}
   - component: {fileID: 382149960}
   - component: {fileID: 382149959}
   - component: {fileID: 382149963}
@@ -406,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &382149958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -420,13 +419,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 550715233}
-  m_Father: {fileID: 461104825}
+  m_Father: {fileID: 410003953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 505, y: -251}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -156, y: -19}
+  m_SizeDelta: {x: 412, y: 62}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &382149959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,20 +478,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382149957}
   m_CullTransparentMesh: 1
---- !u!114 &382149962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382149957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f21ca6d0874a5fabe2799db3c5fc5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  container: {fileID: 382149957}
-  tooltipText: {fileID: 550715234}
 --- !u!114 &382149963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +504,57 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &410003952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410003953}
+  - component: {fileID: 410003954}
+  m_Layer: 5
+  m_Name: TooltipInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &410003953
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410003952}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 382149958}
+  m_Father: {fileID: 461104825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &410003954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410003952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f21ca6d0874a5fabe2799db3c5fc5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 382149957}
+  tooltipText: {fileID: 550715234}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,7 +836,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1421508005}
-  - {fileID: 382149958}
+  - {fileID: 410003953}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -845,7 +881,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 6, y: -6}
-  m_SizeDelta: {x: 400, y: 0}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &550715234
 MonoBehaviour:
@@ -2042,7 +2078,7 @@ PrefabInstance:
     - target: {fileID: 2585868303381165263, guid: b35719f7d495cd64593ae9a17b5249c3, type: 3}
       propertyPath: editorDebugEquippedItemPrefab
       value: 
-      objectReference: {fileID: 1584275455773937827, guid: 0e9857f91de611a438b5996af7a1f51d, type: 3}
+      objectReference: {fileID: 79295065883278882, guid: 0e9857f91de611a438b5996af7a1f51d, type: 3}
     - target: {fileID: 2585868303381165263, guid: b35719f7d495cd64593ae9a17b5249c3, type: 3}
       propertyPath: DebugInventoryLoadItem.Data.Id
       value: 1
