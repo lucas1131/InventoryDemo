@@ -8,6 +8,8 @@ namespace InventoryDemo.Items
     {
         public int Id;
         public int MaxStack;
+        public string Name;
+        public string Description;
         public Sprite Icon;
         public GameObject ItemPrefab;
 
