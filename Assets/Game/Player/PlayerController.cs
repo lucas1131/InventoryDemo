@@ -80,9 +80,11 @@ namespace InventoryDemo.Player
                 float yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, movementProperties.CharacterRotationSpeed * Time.deltaTime);
+
+                Vector3 xzDirection = new Vector3(direction.x, 0, direction.z);
+                xzDirection.Normalize();
+                characterController.SimpleMove(xzDirection * movementProperties.MoveSpeed);
                 animator.SetBool(isMovingID, true);
-                // Debug.Log($"Move: {direction * movementProperties.MoveSpeed}");
-                characterController.SimpleMove(direction * movementProperties.MoveSpeed);
             }
             else // Not moving
             {
