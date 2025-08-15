@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace InventoryDemo.Player
@@ -7,8 +8,11 @@ namespace InventoryDemo.Player
         [SerializeField] private Transform target;
         [SerializeField] private Vector3 offset;
 
-        // Update is called once per frame
-        private void Update()
+        private void Awake() => Follow(); // Initialize
+        private void Update() => Follow(); // Actual gameplay logic
+        private void OnValidate() => Follow(); // Follow in editor
+
+        private void Follow()
         {
             if (target)
             {

@@ -39,6 +39,11 @@ namespace InventoryDemo.Player
             {
                 minDistance = maxDistance;
             }
+
+            if (targetCamera && pivot)
+            { 
+                targetCamera.transform.LookAt(pivot);
+            }
         }
 
         private void Update()
