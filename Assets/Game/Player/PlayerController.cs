@@ -1,5 +1,6 @@
 using System;
 using Game.InventorySystem.UI;
+using Game.SaveSystem;
 using InventoryDemo.InventorySystem;
 using InventoryDemo.Items;
 using UnityEngine;
@@ -53,6 +54,12 @@ namespace InventoryDemo.Player
         private void Update()
         {
             Move(actions.Player.Move.ReadValue<Vector2>());
+            
+            /* Debug */
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                SaveManager.DeleteSavedData();
+            }
         }
 
         private T EnsureComponentExists<T>() where T : Component
@@ -112,6 +119,8 @@ namespace InventoryDemo.Player
             {
                 item.SetAmount(leftoverItem.Amount);
             }
+
+            UpdateSave();
         }
     }
 }

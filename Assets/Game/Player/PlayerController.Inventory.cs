@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game.InventorySystem.UI;
+using Game.SaveSystem;
 using InventoryDemo.Items;
 using UnityEngine;
 
 namespace InventoryDemo.Player
 {
+    // This partial is going outside the scope of a player controller, this should become its own class
     public partial class PlayerController
     {
         [SerializeField] private InventoryMenuController inventoryController;
-        [SerializeField] public ItemData DebugInventoryLoadItem;
 
         private void SetupInventory()
         {
@@ -23,35 +25,40 @@ namespace InventoryDemo.Player
             SetupUIActions();
         }
 
-        private List<ItemData> LoadInventoryData()
+        private static List<ItemData> LoadInventoryData()
         {
-            // TODO save/load
-            List<ItemData> items = new ();
-            ItemDefinition itemDefinition = ItemLibrary.instance.FindItem(DebugInventoryLoadItem.Data.Id);
-            int amount = DebugInventoryLoadItem.Amount;
-            
-            items.Add(new ItemData
+            List<ItemData> items = new(SaveManager.Load().Items);
+            for (int i = 0; i < items.Count; i++)
             {
-                Amount = amount,
-                Data = itemDefinition
-            });
+                ItemData mutableItemData = items[i];
+                mutableItemData.Data = ItemLibrary.Instance.FindItem(items[i].Data.Id);
+                items[i] = mutableItemData;
+            }
 
             return items;
         }
 
         private void SetupInventoryMenu(IReadOnlyList<ItemData> items)
         {
-            inventoryController.Setup(inventory.Rows, inventory.Columns);
+            inventoryController.Setup(inventory, inventory.Rows, inventory.Columns);
             for (int i = 0; i < items.Count; i++)
             {
                 ItemData item = items[i];
                 (int row, int col) = inventory.Slot1DTo2D(i);
-                inventoryController.UpdateSlotAt(row, col, item);
+                inventoryController.UpdateSlotAt(item, row, col);
             }
         }
 
         private void SetupUIActions()
         {
         }
+
+        private void UpdateSave()
+        {
+            SaveData data = SaveManager.GetCachedData();
+
+            data.Items = inventory.GetItems().ToList();
+        }
+        
     }
 }
