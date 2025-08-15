@@ -17,7 +17,8 @@ namespace InventoryDemo.Items
 
         public void Activate() => hitbox.enabled = true;
         public void Deactivate() => hitbox.enabled = false;
-
+        
+        
         private void OnTriggerEnter(Collider other)
         {
             DamageableResource damageable = other.GetComponent<DamageableResource>();

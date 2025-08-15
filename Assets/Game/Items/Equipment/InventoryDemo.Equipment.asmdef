@@ -1,0 +1,17 @@
+﻿{
+    "name": "InventoryDemo.Equipment",
+    "rootNamespace": "InventoryDemo.Equipment",
+    "references": [
+        "InventoryDemo.Items.ItemData",
+        "InventoryDemo.ResourceSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
