@@ -69,5 +69,8 @@ namespace Game.InventorySystem.UI
                 Destroy(child.gameObject);
             }
         }
+
+        public void Show() => gameObject.SetActive(true);
+        public void Hide() => gameObject.SetActive(false);
     }
 }
