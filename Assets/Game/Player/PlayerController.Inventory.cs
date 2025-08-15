@@ -4,6 +4,7 @@ using Game.InventorySystem.UI;
 using Game.SaveSystem;
 using InventoryDemo.Items;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace InventoryDemo.Player
 {
@@ -26,6 +27,7 @@ namespace InventoryDemo.Player
             
             SetupInventoryMenu(inventory.GetItems());
             SetupUIActions();
+            CloseInventory(default);
         }
 
         private static List<ItemData> LoadInventoryData()
@@ -53,6 +55,8 @@ namespace InventoryDemo.Player
 
         private void SetupUIActions()
         {
+            openInventoryAction.performed += OpenInventory;
+            closeInventoryAction.performed += CloseInventory;
         }
 
         private void UpdateSaveWithInventoryData()
@@ -60,6 +64,18 @@ namespace InventoryDemo.Player
             SaveData data = SaveManager.GetCachedData();
             data.Items = inventory.GetItems().ToList();
             SaveManager.Save(data);
+        }
+
+        private void OpenInventory(InputAction.CallbackContext _)
+        {
+            inventoryController.Show();
+            cameraController.LockRotationAndShowMouse();
+        }
+        
+        private void CloseInventory(InputAction.CallbackContext _)
+        {
+            inventoryController.Show();
+            cameraController.UnlockRotationAndHideMouse();
         }
     }
 }

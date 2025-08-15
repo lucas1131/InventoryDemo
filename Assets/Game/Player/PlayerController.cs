@@ -27,6 +27,8 @@ namespace InventoryDemo.Player
         [SerializeField] private Animator animator;
         [SerializeField] private EquipSlot weaponSlot;
         [SerializeField] private EquipableItem editorDebugEquippedItemPrefab;
+        [SerializeField] private InputAction openInventoryAction;
+        [SerializeField] private InputAction closeInventoryAction;
 
         private readonly int attackTriggerID = Animator.StringToHash("Attack");
         private readonly int isMovingID = Animator.StringToHash("IsMoving");
@@ -36,7 +38,7 @@ namespace InventoryDemo.Player
         private PlayerAnimationEvents animationEventListener;
         private ItemPickuper itemPickuper;
         private Inventory inventory;
-        private DefaultInputActions actions;
+        private DefaultInputActions builtinActions;
         private EquipableItem equippedItem;
 
         private void Awake()
@@ -53,10 +55,10 @@ namespace InventoryDemo.Player
         {
             itemPickuper.OnItemPickedUp += OnItemPickedUp;
 
-            actions = new DefaultInputActions();
-            actions.Player.Look.performed += OnLook;
-            actions.Player.Fire.performed += OnAttackAction;
-            actions.Enable();
+            builtinActions = new DefaultInputActions();
+            builtinActions.Player.Look.performed += OnLook;
+            builtinActions.Player.Fire.performed += OnAttackAction;
+            builtinActions.Enable();
 
             animationEventListener.OnAttackStarted += AttackStarted;
             animationEventListener.OnAttackStarted += AttackEnded;
@@ -76,7 +78,7 @@ namespace InventoryDemo.Player
 
         private void Update()
         {
-            Move(actions.Player.Move.ReadValue<Vector2>());
+            Move(builtinActions.Player.Move.ReadValue<Vector2>());
 
             /* Debug */
             if (Input.GetKeyDown(KeyCode.K))
