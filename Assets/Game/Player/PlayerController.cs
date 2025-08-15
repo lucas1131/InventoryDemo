@@ -1,4 +1,6 @@
 using System;
+using InventoryDemo.InventorySystem;
+using InventoryDemo.Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,19 +29,23 @@ namespace InventoryDemo.Player
         
         private CharacterController characterController;
         private CameraController cameraController;
+        private ItemPickuper itemPickuper;
+        private Inventory inventory;
         private DefaultInputActions actions;
-        
+
         private void Start()
         {
             characterController = EnsureComponentExists<CharacterController>();
             cameraController = EnsureComponentExists<CameraController>();
+            inventory = EnsureComponentExists<Inventory>();
+            itemPickuper = EnsureComponentExists<ItemPickuper>();
+            itemPickuper.OnItemPickedUp += OnItemPickedUp;
 
             actions = new DefaultInputActions();
             actions.Player.Look.performed += OnLook;
             actions.Player.Fire.performed += OnAttack;
             actions.Enable();
         }
-
 
         private void Update()
         {
@@ -51,7 +57,7 @@ namespace InventoryDemo.Player
             T component = GetComponent<T>();
             if (component == null)
             {
-                Debug.LogWarning($"Object {name} has no required component {nameof(T)}! Creating a default one.");
+                Debug.LogWarning($"Object {name} has no required component {typeof(T).Name}! Creating a default one.");
                 component = gameObject.AddComponent<T>();
             }
 
@@ -88,6 +94,15 @@ namespace InventoryDemo.Player
         private void OnAttack(InputAction.CallbackContext obj)
         {
             animator.SetTrigger(attackTriggerID);
+        }
+        
+        private void OnItemPickedUp(PickableItem item)
+        {
+            inventory.AddItem(item.GetItemData(), out ItemData leftoverItem);
+            if (leftoverItem.Amount <= 0)
+            {
+                item.Destroy();
+            }
         }
     }
 }

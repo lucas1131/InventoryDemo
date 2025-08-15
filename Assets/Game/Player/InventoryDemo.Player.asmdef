@@ -2,7 +2,9 @@
     "name": "InventoryDemo.Player",
     "rootNamespace": "InventoryDemo.Player",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:3d3a3a1014bb9be448910cf022867b4d",
+        "GUID:487dc6bb6960d134884c67e4234e09d2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
