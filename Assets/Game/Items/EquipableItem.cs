@@ -1,16 +1,16 @@
 using UnityEngine;
 
-namespace InventoryDemo.Inventory
+namespace InventoryDemo.Items
 {
-    public class Inventory : MonoBehaviour
+    public class EquipableItem : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        private void Start()
+        void Start()
         {
         }
 
         // Update is called once per frame
-        private void Update()
+        void Update()
         {
         }
     }

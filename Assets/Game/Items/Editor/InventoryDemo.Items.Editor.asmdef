@@ -1,0 +1,17 @@
+﻿
+{
+    "name": "InventoryDemo.Items.Editor",
+    "rootNamespace": "InventoryDemo.Items.Editor",
+    "references": [
+        "InventoryDemo.Items"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
