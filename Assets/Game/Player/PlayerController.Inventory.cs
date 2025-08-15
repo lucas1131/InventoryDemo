@@ -58,6 +58,5 @@ namespace InventoryDemo.Player
             data.Items = inventory.GetItems().ToList();
             SaveManager.Save(data);
         }
-        
     }
 }

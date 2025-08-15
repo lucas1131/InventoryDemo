@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3660755356896160294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 389.18, y: 11.853, z: 483.464}
+  m_LocalPosition: {x: 389.18, y: 11.784077, z: 483.464}
   m_LocalScale: {x: 0.15, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    Amount: 1
+    Amount: 2
     Data:
       Id: 0
       MaxStack: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
       Description: 
       Icon: {fileID: 0}
       ItemPrefab: {fileID: 0}
+    instanceId: 00000000-0000-0000-0000-000000000000
   itemAsset: {fileID: 0}
 --- !u!1 &5970732475828959291
 GameObject:

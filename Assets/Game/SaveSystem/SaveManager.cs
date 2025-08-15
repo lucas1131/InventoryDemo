@@ -10,7 +10,7 @@ namespace Game.SaveSystem
     public class SaveData
     {
         public List<ItemData> Items = new();
-        public List<Guid> PickedItems = new();
+        public List<string> PickedItemsId = new();
     }
     
     public static class SaveManager
@@ -56,7 +56,7 @@ namespace Game.SaveSystem
         public static bool QueryPickedItems(ItemData item)
         {
             // If we never loaded we cant have anything pickup
-            return cachedSavedData != null && cachedSavedData.PickedItems.Contains(item.InstanceId);
+            return cachedSavedData != null && cachedSavedData.PickedItemsId.Contains(item.InstanceId);
         }
     }
 }

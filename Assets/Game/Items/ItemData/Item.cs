@@ -27,17 +27,12 @@ namespace InventoryDemo.Items
     {
         public int Amount;
         public ItemDefinition Data;
-        private Guid instanceId;
+        [SerializeField] private string instanceId;
+        public string InstanceId => instanceId;
 
-        public Guid InstanceId
+        public void SetInstanceId(Guid newId)
         {
-            get
-            {
-                if (instanceId == Guid.Empty)
-                    instanceId = Guid.NewGuid();
-
-                return instanceId;
-            }
+            instanceId = newId.ToString();
         }
 
         public override int GetHashCode() => Data.Id;
