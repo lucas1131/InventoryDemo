@@ -11,7 +11,14 @@ namespace Game.InventorySystem.UI
         [SerializeField] private TMP_Text amountText;
 
         private ItemData itemData;
+        private int index;
+        private int column;
         public ItemData ItemData => itemData;
+
+        public void SetSlotIndex(int index)
+        {
+            this.index = index;
+        }
 
         public void Setup(ItemData inItemData)
         {

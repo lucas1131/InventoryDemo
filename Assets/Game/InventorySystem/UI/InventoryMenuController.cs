@@ -45,13 +45,15 @@ namespace Game.InventorySystem.UI
             
             for (int i = 0; i < rows*columns; i++)
             {
-                slots.Add(Instantiate(slotPrefab, panelTransform));
+                InventorySlotController slot = Instantiate(slotPrefab, panelTransform);
+                slot.SetSlotIndex(i);
+                slots.Add(slot);
             }
         }
 
-        public void UpdateSlotAt(ItemData itemData, int row, int column)
+        public void UpdateSlotAt(ItemData itemData, int index)
         {
-            slots[row * totalRows + column].Setup(itemData);
+            slots[index].Setup(itemData);
         }
 
         private void ClearAllChildren()

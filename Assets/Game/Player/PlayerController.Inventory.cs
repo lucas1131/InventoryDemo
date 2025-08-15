@@ -44,8 +44,7 @@ namespace InventoryDemo.Player
             for (int i = 0; i < items.Count; i++)
             {
                 ItemData item = items[i];
-                (int row, int col) = inventory.Slot1DTo2D(i);
-                inventoryController.UpdateSlotAt(item, row, col);
+                inventoryController.UpdateSlotAt(item, i);
             }
         }
 

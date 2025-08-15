@@ -15,7 +15,7 @@ namespace InventoryDemo.InventorySystem
 
         private ItemData[] inventory;
          
-        public delegate void OnInventorySlotUpdated(ItemData item, int row, int column);
+        public delegate void OnInventorySlotUpdated(ItemData item, int index);
         public event OnInventorySlotUpdated OnInventorySlotUpdatedEvent;
 
         private void Start()
@@ -32,9 +32,6 @@ namespace InventoryDemo.InventorySystem
         {
             inventory = new ItemData[inventoryRows * inventoryColumns];
         }
-
-        public int Slot2DTo1D(int row, int column) => row * inventoryColumns + column;
-        public (int row, int col) Slot1DTo2D(int index) => (index % inventoryColumns, index / inventoryColumns);
 
         private int FindFirstEmptySlot()
         {
@@ -100,8 +97,7 @@ namespace InventoryDemo.InventorySystem
 
         private void BroadcastSlotUpdated(int idx, ItemData item)
         {
-            (int row, int col) = Slot1DTo2D(idx);
-            OnInventorySlotUpdatedEvent?.Invoke(item, row, col);
+            OnInventorySlotUpdatedEvent?.Invoke(item, idx);
         }
 
         public bool RemoveItem(ItemData removedItem, bool shouldOnlyRemoveIfAmountIsEnough = false)
