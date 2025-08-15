@@ -8,6 +8,7 @@ namespace InventoryDemo.Items
         [SerializeField] private ItemAsset itemAsset;
 
         public ItemData GetItemData() => new() { Amount = amount, Data = itemAsset.ItemDefinition };
+        public void SetAmount(int inAmount) => amount = inAmount;
 
         public void Destroy() => Destroy(gameObject);
     }

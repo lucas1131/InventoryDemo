@@ -11,6 +11,11 @@ namespace InventoryDemo.InventorySystem
 
         private ItemData[] inventory;
 
+        private void Start()
+        {
+            inventory = new ItemData[inventoryRows * inventoryColumns];
+        }
+
         private void OnValidate()
         {
             inventory = new ItemData[inventoryRows * inventoryColumns];
@@ -55,22 +60,26 @@ namespace InventoryDemo.InventorySystem
                 int calculatedAmount = inventory[idx].Amount + addedItem.Amount;
                 leftovers = calculatedAmount - inventory[idx].Data.MaxStack;
                 inventory[idx].Amount = Mathf.Clamp(calculatedAmount, 0, inventory[idx].Data.MaxStack);
+                leftoverItem.Amount = leftovers;
             }
 
             if (leftovers > 0)
             {
+                Debug.Log($"Item {addedItem.Data.Name} hit max stack, trying to add x{leftovers} leftovers to another slot.");
                 idx = FindFirstEmptySlot();
                 // No more space for leftovers
                 if (idx < 0)
                 {
-                    leftoverItem.Amount = leftovers;
+                    Debug.Log($"Inventory is full, cannot fit all items. Picked up x{addedItem.Amount-leftovers} {addedItem.Data.Name} and left: x{leftovers}.");
                     return false;
                 }
 
+                leftoverItem.Amount = 0;
                 inventory[idx] = addedItem;
                 inventory[idx].Amount = leftovers;
             }
 
+            Debug.Log($"Picked up x{addedItem.Amount} {addedItem.Data.Name}.");
             return true;
         }
 

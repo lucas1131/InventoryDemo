@@ -75,19 +75,19 @@ namespace InventoryDemo.Player
             Vector3 direction = cameraController.GetForward() * input.y + cameraController.GetRight() * input.x;
 
             // Don't allow rotation to snap back to 0 when there is no input
-            if (input.sqrMagnitude >= 0.0001)
+            if (input.sqrMagnitude >= 0.00001)
             {
                 float yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0f, yaw, 0f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, movementProperties.CharacterRotationSpeed * Time.deltaTime);
                 animator.SetBool(isMovingID, true);
+                // Debug.Log($"Move: {direction * movementProperties.MoveSpeed}");
+                characterController.SimpleMove(direction * movementProperties.MoveSpeed);
             }
             else // Not moving
             {
                 animator.SetBool(isMovingID, false);
             }
-
-            characterController.SimpleMove(direction * movementProperties.MoveSpeed);
         }
         #endregion
         
@@ -98,10 +98,14 @@ namespace InventoryDemo.Player
         
         private void OnItemPickedUp(PickableItem item)
         {
-            inventory.AddItem(item.GetItemData(), out ItemData leftoverItem);
-            if (leftoverItem.Amount <= 0)
+            if (inventory.AddItem(item.GetItemData(), out ItemData leftoverItem) && leftoverItem.Amount <= 0)
             {
+                Debug.Log($"Picked up everything, destroying item.");
                 item.Destroy();
+            }
+            else
+            {
+                item.SetAmount(leftoverItem.Amount);
             }
         }
     }
