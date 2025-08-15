@@ -1,0 +1,32 @@
+﻿using InventoryDemo.Items;
+using UnityEngine;
+
+namespace InventoryDemo.Player
+{
+    public class EquipSlot : MonoBehaviour
+    {
+        [SerializeField] private GameObject socket;
+        private GameObject equippedItem;
+
+        public void Equip(EquipableItem item)
+        {
+            Unequip();
+
+            if (!item) return;
+            
+            item.transform.SetParent(socket.transform, false);
+            socket.transform.localPosition = Vector3.zero;
+            socket.transform.localRotation = Quaternion.Euler(-90f, 0f, 90f);
+        }
+
+        private void Unequip()
+        {
+            if (equippedItem == null) return;
+            
+            Destroy(equippedItem);
+            equippedItem = null;
+        }
+
+        public bool HasItemEquipped() => equippedItem != null;
+    }
+}
