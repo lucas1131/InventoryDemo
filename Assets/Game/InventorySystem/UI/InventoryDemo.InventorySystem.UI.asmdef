@@ -1,0 +1,17 @@
+{
+    "name": "InventoryDemo.InventorySystem.UI",
+    "rootNamespace": "",
+    "references": [
+        "InventoryDemo.Items",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

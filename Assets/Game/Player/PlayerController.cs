@@ -1,4 +1,5 @@
 using System;
+using Game.InventorySystem.UI;
 using InventoryDemo.InventorySystem;
 using InventoryDemo.Items;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace InventoryDemo.Player
         }
     }
 
-    public class PlayerController : MonoBehaviour
+    public partial class PlayerController : MonoBehaviour
     {
         [SerializeField] private CharacterControllerProperties movementProperties;
         [SerializeField] private Animator animator;
@@ -45,6 +46,8 @@ namespace InventoryDemo.Player
             actions.Player.Look.performed += OnLook;
             actions.Player.Fire.performed += OnAttack;
             actions.Enable();
+
+            SetupInventory();
         }
 
         private void Update()
