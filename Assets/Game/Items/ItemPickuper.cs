@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace InventoryDemo.Items
 {
@@ -7,7 +8,12 @@ namespace InventoryDemo.Items
         public delegate void OnItemPickedUpEvent(PickableItem item);
 
         public event OnItemPickedUpEvent OnItemPickedUp;
-            
+
+        private void OnDestroy()
+        {
+            OnItemPickedUp = null;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             PickableItem item = other.gameObject.GetComponent<PickableItem>();
