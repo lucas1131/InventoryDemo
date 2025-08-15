@@ -1,0 +1,14 @@
+﻿{
+    "name": "InventoryDemo.ResourceSystem",
+    "rootNamespace": "InventoryDemo.ResourceSystem",
+    "references": ["GUID:3d3a3a1014bb9be448910cf022867b4d"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
