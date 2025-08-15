@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using UnityEngine;
 
 namespace Game.InventorySystem.UI
 {
@@ -8,21 +9,25 @@ namespace Game.InventorySystem.UI
         public static TooltipManager Instance => instance ??= new TooltipManager();
 
         private TMP_Text tooltipText;
+        private GameObject container;
 
-        public void Setup(TMP_Text text)
+        public void Setup(TMP_Text text, GameObject inContainer)
         {
             tooltipText = text;
+            container = inContainer;
         }
 
         public void ShowTooltip(string description)
         {
+            if (string.IsNullOrEmpty(description)) return;
+            
             tooltipText.text = description;
-            tooltipText.gameObject.SetActive(true);
+            container.SetActive(true);
         }
 
         public void HideTooltip()
         {
-            tooltipText.gameObject.SetActive(false);
+            container.SetActive(false);
         }
     }
 }
