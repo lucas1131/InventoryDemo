@@ -9,9 +9,11 @@ namespace InventoryDemo.Items
     {
         [SerializeField] private ItemData item;
         [SerializeField] private ItemAsset itemAsset;
+        [SerializeField] private Rigidbody rb; 
         private bool queryDone = false;
 
         private readonly float snapToGroundHeight = 5f;
+        public Rigidbody Rigidbody => rb; 
 
         private void Awake()
         {
@@ -20,6 +22,11 @@ namespace InventoryDemo.Items
             if (item.InstanceId.Equals(Guid.Empty.ToString()))
             {
                 item.SetInstanceId(Guid.NewGuid());
+            }
+
+            if (rb == null)
+            {
+                rb = GetComponent<Rigidbody>();
             }
         }
 
