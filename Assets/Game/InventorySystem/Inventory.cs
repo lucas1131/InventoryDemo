@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using InventoryDemo.Items;
 
@@ -8,6 +9,9 @@ namespace InventoryDemo.InventorySystem
     {
         [SerializeField] private int inventoryRows = 4;
         [SerializeField] private int inventoryColumns = 8;
+        
+        public int Rows => inventoryRows;
+        public int Columns => inventoryColumns;
 
         private ItemData[] inventory;
 
@@ -21,8 +25,8 @@ namespace InventoryDemo.InventorySystem
             inventory = new ItemData[inventoryRows * inventoryColumns];
         }
 
-        private int Slot2DTo1D(int row, int column) => row * inventoryColumns + column;
-        private (int row, int col) Slot1DTo2D(int index) => (index % inventoryColumns, index / inventoryColumns);
+        public int Slot2DTo1D(int row, int column) => row * inventoryColumns + column;
+        public (int row, int col) Slot1DTo2D(int index) => (index % inventoryColumns, index / inventoryColumns);
 
         private int FindFirstEmptySlot()
         {
@@ -98,7 +102,14 @@ namespace InventoryDemo.InventorySystem
                 inventory[idx].Amount = Mathf.Max(leftovers, 0);
             }
 
+            if (inventory[idx].Amount <= 0)
+            {
+                inventory[idx] = new ItemData(); // Cleanup with empty item
+            }
+
             return true;
         }
+        
+        public IReadOnlyList<ItemData> GetItems() => inventory;
     }
 }

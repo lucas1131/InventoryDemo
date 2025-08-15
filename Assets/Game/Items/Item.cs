@@ -19,8 +19,6 @@ namespace InventoryDemo.Items
         public static bool operator ==(ItemDefinition item1, ItemDefinition item2) => item1.Equals(item2);
         public static bool operator !=(ItemDefinition item1, ItemDefinition item2) => !item1.Equals(item2);
 
-        public static ItemDefinition GetCDO() => new();
-
         public bool IsValid() => Id > 0;
     }
 

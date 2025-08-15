@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace InventoryDemo.Items
 {
     [CreateAssetMenu(fileName = "ItemLibrary", menuName = "InventoryDemo/ItemLibrary")]
-    public class ItemLibrary : ScriptableObject
+    public class ItemLibrary : ScriptableSingleton<ItemLibrary>
     {
         [SerializeField] private List<ItemAsset> items;
         private Dictionary<int, ItemAsset> itemTable;
@@ -18,7 +19,7 @@ namespace InventoryDemo.Items
                 return item.ItemDefinition;
             }
 
-            return ItemDefinition.GetCDO();
+            return new ItemDefinition();
         }
 
         private Dictionary<int, ItemAsset> ConstructLookupTable()
