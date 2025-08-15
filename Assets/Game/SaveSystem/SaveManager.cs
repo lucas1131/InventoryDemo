@@ -7,17 +7,16 @@ using UnityEngine;
 
 namespace Game.SaveSystem
 {
-    [Serializable]
-    public struct SaveData
+    public class SaveData
     {
-        public List<ItemData> Items;   
-        public List<Guid> PickedItems;
+        public List<ItemData> Items = new();
+        public List<Guid> PickedItems = new();
     }
     
-    public class SaveManager
+    public static class SaveManager
     {
         private static string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
-        internal static SaveData? cachedSavedData;
+        internal static SaveData cachedSavedData;
 
         public static bool Save(SaveData data)
         {
@@ -41,7 +40,7 @@ namespace Game.SaveSystem
                 ? JsonUtility.FromJson<SaveData>(File.ReadAllText(SavePath)) 
                 : new SaveData();
             
-            return cachedSavedData.Value;
+            return cachedSavedData;
         }
 
         public static void DeleteSavedData()
@@ -57,8 +56,7 @@ namespace Game.SaveSystem
         public static bool QueryPickedItems(ItemData item)
         {
             // If we never loaded we cant have anything pickup
-            return cachedSavedData != null && cachedSavedData.Value.PickedItems.Contains(item.InstanceId);
+            return cachedSavedData != null && cachedSavedData.PickedItems.Contains(item.InstanceId);
         }
-        
     }
 }

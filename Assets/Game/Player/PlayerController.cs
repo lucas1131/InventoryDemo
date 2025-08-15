@@ -120,7 +120,7 @@ namespace InventoryDemo.Player
                 item.SetAmount(leftoverItem.Amount);
             }
 
-            UpdateSave();
+            UpdateSaveWithInventoryData();
         }
     }
 }

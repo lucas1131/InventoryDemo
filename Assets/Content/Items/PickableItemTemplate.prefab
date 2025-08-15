@@ -172,7 +172,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13e7b96039238f4f95856f9dd800015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 0
+  item:
+    Amount: 1
+    Data:
+      Id: 0
+      MaxStack: 0
+      Name: 
+      Description: 
+      Icon: {fileID: 0}
+      ItemPrefab: {fileID: 0}
   itemAsset: {fileID: 0}
 --- !u!1 &5970732475828959291
 GameObject:

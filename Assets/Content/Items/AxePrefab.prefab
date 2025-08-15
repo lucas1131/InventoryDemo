@@ -192,6 +192,14 @@ PrefabInstance:
       propertyPath: itemAsset
       value: 
       objectReference: {fileID: 11400000, guid: 81bdb4397824f584fbaf82dc8b20d264, type: 2}
+    - target: {fileID: 7327673190182352492, guid: b48516c6615ba9a4fa031b75751beaa6, type: 3}
+      propertyPath: data.Amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7327673190182352492, guid: b48516c6615ba9a4fa031b75751beaa6, type: 3}
+      propertyPath: item.Amount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8844595686136500718, guid: b48516c6615ba9a4fa031b75751beaa6, type: 3}
       propertyPath: m_Size.x
       value: 1.0000001

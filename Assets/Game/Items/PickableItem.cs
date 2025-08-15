@@ -1,11 +1,12 @@
 using Game.SaveSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace InventoryDemo.Items
 {
     public class PickableItem : MonoBehaviour
     {
-        [SerializeField] private ItemData data;
+        [SerializeField] private ItemData item;
         [SerializeField] private ItemAsset itemAsset;
         private bool queryDone = false;
 
@@ -14,20 +15,21 @@ namespace InventoryDemo.Items
         private void LateUpdate()
         {
             if (queryDone) return;
-            if (SaveManager.QueryPickedItems(data))
+            if (SaveManager.QueryPickedItems(item))
             {
                 Destroy(gameObject);
                 queryDone = true;
             }
         }
 
-        public ItemData GetItemData() => data;
-        public void SetAmount(int inAmount) => data.Amount = inAmount;
+        public ItemData GetItemData() => item;
+        public void SetAmount(int inAmount) => item.Amount = inAmount;
 
         public void Destroy()
         {
             SaveData saveData = SaveManager.GetCachedData();
-            saveData.PickedItems.Add(data.InstanceId);
+            saveData.PickedItems.Add(item.InstanceId);
+            SaveManager.Save(saveData);
             Destroy(gameObject);
         }
     }

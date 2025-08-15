@@ -53,11 +53,11 @@ namespace InventoryDemo.Player
         {
         }
 
-        private void UpdateSave()
+        private void UpdateSaveWithInventoryData()
         {
             SaveData data = SaveManager.GetCachedData();
-
             data.Items = inventory.GetItems().ToList();
+            SaveManager.Save(data);
         }
         
     }
