@@ -1,4 +1,5 @@
 using System;
+using Game.ResourceSystem;
 using UnityEngine;
 
 namespace InventoryDemo.Items
@@ -14,14 +15,15 @@ namespace InventoryDemo.Items
             if (hitbox != null) hitbox.enabled = false;
         }
 
-        public void Activate()
-        {
-            hitbox.enabled = true;
-        }
+        public void Activate() => hitbox.enabled = true;
+        public void Deactivate() => hitbox.enabled = false;
 
-        public void Deactivate()
+        private void OnTriggerEnter(Collider other)
         {
-            hitbox.enabled = false;
+            DamageableResource damageable = other.GetComponent<DamageableResource>();
+            if (damageable == null) return;
+            
+            damageable.Damage(1);
         }
     }
 }
