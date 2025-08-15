@@ -8,6 +8,7 @@ namespace InventoryDemo.Player
         [SerializeField] private GameObject socket;
         private GameObject equippedItem;
 
+
         public void Equip(EquipableItem item)
         {
             Unequip();
@@ -15,8 +16,8 @@ namespace InventoryDemo.Player
             if (!item) return;
             
             item.transform.SetParent(socket.transform, false);
-            socket.transform.localPosition = Vector3.zero;
-            socket.transform.localRotation = Quaternion.Euler(-90f, 0f, 90f);
+            item.transform.localPosition = Vector3.zero;
+            item.transform.localRotation = Quaternion.identity;
         }
 
         private void Unequip()

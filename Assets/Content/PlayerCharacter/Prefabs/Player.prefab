@@ -469,7 +469,7 @@ MonoBehaviour:
   animator: {fileID: 4307828893938466076}
   weaponSlot: {fileID: 817954840793195791}
   editorDebugEquippedItemPrefab: {fileID: 0}
-  actionAsset: {fileID: 0}
+  actionAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   inventoryController: {fileID: 0}
 --- !u!114 &9067294546664299870
 MonoBehaviour:
@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socket: {fileID: 8730836729432899710}
+  socketLocalPosition: {x: 0, y: 0.139, z: 0.0267}
 --- !u!4 &7865632796031608678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9cd8eb4a074cd84ab2686c58bcf21d9, type: 3}
