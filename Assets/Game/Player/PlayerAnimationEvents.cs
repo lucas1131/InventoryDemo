@@ -5,26 +5,27 @@ namespace InventoryDemo.Player
 {
     public class PlayerAnimationEvents : MonoBehaviour
     {
-        [SerializeField] private GameObject WeaponHitbox;
+        public delegate void OnAttackAnimationEvent();
 
-        private void Start()
+        public event OnAttackAnimationEvent OnAttackStarted;
+        public event OnAttackAnimationEvent OnAttackEnded;
+
+        private void OnDestroy()
         {
-            WeaponHitbox = new GameObject();
-            WeaponHitbox.gameObject.SetActive(false);
+            OnAttackStarted = null;
+            OnAttackEnded = null;
         }
-        
+
         [UsedImplicitly]
         public void AttackStarted()
         {
-            Debug.Log($"AttackStarted event called");
-            WeaponHitbox.gameObject.SetActive(true);
+            OnAttackStarted?.Invoke();
         }
 
         [UsedImplicitly]
         public void AttackEnded()
         {
-            Debug.Log($"AttackEnded event called");
-            WeaponHitbox.gameObject.SetActive(false);
+            OnAttackEnded?.Invoke();
         }
     }
 }
