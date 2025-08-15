@@ -14,10 +14,18 @@ namespace InventoryDemo.InventorySystem
         public int Columns => inventoryColumns;
 
         private ItemData[] inventory;
+         
+        public delegate void OnInventorySlotUpdated(ItemData item, int row, int column);
+        public event OnInventorySlotUpdated OnInventorySlotUpdatedEvent;
 
         private void Start()
         {
             inventory = new ItemData[inventoryRows * inventoryColumns];
+        }
+
+        private void OnDestroy()
+        {
+            OnInventorySlotUpdatedEvent = null;
         }
 
         private void OnValidate()
@@ -65,6 +73,8 @@ namespace InventoryDemo.InventorySystem
                 leftovers = calculatedAmount - inventory[idx].Data.MaxStack;
                 inventory[idx].Amount = Mathf.Clamp(calculatedAmount, 0, inventory[idx].Data.MaxStack);
                 leftoverItem.Amount = leftovers;
+
+                BroadcastSlotUpdated(idx, inventory[idx]);
             }
 
             if (leftovers > 0)
@@ -81,10 +91,17 @@ namespace InventoryDemo.InventorySystem
                 leftoverItem.Amount = 0;
                 inventory[idx] = addedItem;
                 inventory[idx].Amount = leftovers;
+                BroadcastSlotUpdated(idx, inventory[idx]);
             }
 
             Debug.Log($"Picked up x{addedItem.Amount} {addedItem.Data.Name}.");
             return true;
+        }
+
+        private void BroadcastSlotUpdated(int idx, ItemData item)
+        {
+            (int row, int col) = Slot1DTo2D(idx);
+            OnInventorySlotUpdatedEvent?.Invoke(item, row, col);
         }
 
         public bool RemoveItem(ItemData removedItem, bool shouldOnlyRemoveIfAmountIsEnough = false)
@@ -107,6 +124,7 @@ namespace InventoryDemo.InventorySystem
                 inventory[idx] = new ItemData(); // Cleanup with empty item
             }
 
+            BroadcastSlotUpdated(idx, inventory[idx]);
             return true;
         }
         

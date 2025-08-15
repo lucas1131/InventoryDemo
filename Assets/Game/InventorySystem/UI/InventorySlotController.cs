@@ -18,6 +18,7 @@ namespace Game.InventorySystem.UI
             itemData = inItemData;
             
             icon.sprite = inItemData.Data.Icon;
+            icon.enabled = icon.sprite != null;
             amountText.text = inItemData.Amount > 0 ? inItemData.Amount.ToString() : "";
         }
     }

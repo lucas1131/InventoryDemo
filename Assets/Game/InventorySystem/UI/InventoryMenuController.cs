@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InventoryDemo.InventorySystem;
 using InventoryDemo.Items;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,20 +19,27 @@ namespace Game.InventorySystem.UI
         {
             ClearAllChildren();
         }
-
-        public void Setup(int rows, int columns)
+        
+        public void Setup(Inventory inventory, int rows, int columns)
         {
+            inventory.OnInventorySlotUpdatedEvent += UpdateSlotAt;
             totalRows = rows;
             totalColumns = columns;
             RectTransform panelTransform = (RectTransform) inventoryGrid.transform;
             
             float panelWidth = panelTransform.rect.width;
             float panelHeight = panelTransform.rect.width;
+
+            Vector2 totalPadding = new(
+                inventoryGrid.spacing.x * (columns - 1) + inventoryGrid.padding.left + inventoryGrid.padding.right,
+                inventoryGrid.spacing.y * (rows - 1) + inventoryGrid.padding.top + inventoryGrid.padding.bottom);
+                
+            float usableWidth = panelWidth - totalPadding.x;
+            float usableHeight = panelHeight - totalPadding.y;
             
-            float usableWidth = panelWidth + inventoryGrid.spacing.x*(columns - 1) + inventoryGrid.padding.left + inventoryGrid.padding.right;
-            float usableHeight = panelHeight + inventoryGrid.spacing.y*(rows - 1) + inventoryGrid.padding.top + inventoryGrid.padding.bottom;
-            
-            inventoryGrid.cellSize = new Vector2(usableWidth/columns, usableHeight/rows);
+            // Fit cell
+            float size = Mathf.Min(usableWidth / columns, usableHeight / rows);
+            inventoryGrid.cellSize = new Vector2(size, size);
 
             slots = new List<InventorySlotController>(totalRows * totalColumns);
             
@@ -41,7 +49,7 @@ namespace Game.InventorySystem.UI
             }
         }
 
-        public void UpdateSlotAt(int row, int column, ItemData itemData)
+        public void UpdateSlotAt(ItemData itemData, int row, int column)
         {
             slots[row * totalRows + column].Setup(itemData);
         }
