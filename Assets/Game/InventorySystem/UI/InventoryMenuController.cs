@@ -188,6 +188,7 @@ namespace InventoryDemo.InventorySystem.UI
             {
                 itemData.Data.UsableItemBehaviour.Use();
                 inventory.RemoveAmountAt(index, 1);
+                inventory.SaveInventory();
             }
         }
     }
