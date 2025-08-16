@@ -9,21 +9,25 @@ namespace InventoryDemo.InventorySystem.UI
     public class InventoryMenuController : MonoBehaviour
     {
         public delegate void OnEquipItemDelegate(ItemData itemData);
+
         public event OnEquipItemDelegate OnEquipItem;
-        
+
         [SerializeField] private GridLayoutGroup inventoryGrid;
         [SerializeField] private InventorySlotController slotPrefab;
         [SerializeField] private ThrowItemPanel throwItemPanel;
+        [SerializeField] private CanvasGroup canvasGroup;
 
         private List<InventorySlotController> slots = new();
         private int totalRows;
         private int totalColumns;
         private Inventory inventory;
         private (ItemData itemData, int slotIndex)? currentlyHeldItem;
+        private bool isLayoutDirty;
 
         private void Awake()
         {
             ClearAllChildren();
+            isLayoutDirty = true;
         }
 
         private void OnDestroy()
@@ -38,49 +42,55 @@ namespace InventoryDemo.InventorySystem.UI
             throwItemPanel.OnClicked += ThrowSelectedItem;
             totalRows = rows;
             totalColumns = columns;
-            RectTransform panelTransform = (RectTransform)inventoryGrid.transform;
 
-            float panelWidth = panelTransform.rect.width;
-            float panelHeight = panelTransform.rect.width;
+            isLayoutDirty = true;
+
+            RectTransform panelRect = (RectTransform)inventoryGrid.transform;
+            slots = new List<InventorySlotController>(totalRows * totalColumns);
+            for (int i = 0; i < rows * columns; i++)
+            {
+                InventorySlotController slot = Instantiate(slotPrefab, panelRect);
+                slot.Setup(this, i);
+                slots.Add(slot);
+            }
+        }
+
+        private void CalculateGridCellSize(RectTransform panelRect)
+        {
+            float panelWidth = panelRect.rect.width;
+            float panelHeight = panelRect.rect.width;
 
             Vector2 totalPadding = new(
-                inventoryGrid.spacing.x * (columns - 1) + inventoryGrid.padding.left + inventoryGrid.padding.right,
-                inventoryGrid.spacing.y * (rows - 1) + inventoryGrid.padding.top + inventoryGrid.padding.bottom);
+                inventoryGrid.spacing.x * (totalColumns - 1) + inventoryGrid.padding.left + inventoryGrid.padding.right,
+                inventoryGrid.spacing.y * (totalRows - 1) + inventoryGrid.padding.top + inventoryGrid.padding.bottom);
 
             float usableWidth = panelWidth - totalPadding.x;
             float usableHeight = panelHeight - totalPadding.y;
 
             // Fit cell
-            float size = Mathf.Min(usableWidth / columns, usableHeight / rows);
+            float size = Mathf.Min(usableWidth / totalColumns, usableHeight / totalRows);
             inventoryGrid.cellSize = new Vector2(size, size);
-
-            slots = new List<InventorySlotController>(totalRows * totalColumns);
-
-            for (int i = 0; i < rows * columns; i++)
-            {
-                InventorySlotController slot = Instantiate(slotPrefab, panelTransform);
-                slot.Setup(this, i);
-                slots.Add(slot);
-            }
         }
 
         private void ThrowSelectedItem()
         {
             if (currentlyHeldItem == null) return;
 
-            Vector3 playerForward = inventory.gameObject.transform.forward + inventory.gameObject.transform.up*0.5f; // aim a little bit higher
+            Vector3 playerForward =
+                inventory.gameObject.transform.forward + inventory.gameObject.transform.up * 0.5f; // aim a little bit higher
             Vector3 spawnOrigin = inventory.gameObject.transform.position;
             const float spawnOffset = 2;
             Vector3 spawnLocation = spawnOrigin + playerForward * spawnOffset;
-                
+
             GameObject item = Instantiate(currentlyHeldItem.Value.itemData.Data.PickableItemPrefab, spawnLocation, Quaternion.identity);
-            
+
             // Inventory is attached to player, so this should throw forward
             Rigidbody rb = item.GetComponent<Rigidbody>();
             if (rb)
             {
                 rb.AddForce(playerForward * 3f, ForceMode.VelocityChange);
             }
+
             inventory.RemoveItemAt(currentlyHeldItem.Value.slotIndex);
             inventory.SaveInventory();
             DeSelectItem();
@@ -105,12 +115,23 @@ namespace InventoryDemo.InventorySystem.UI
             }
         }
 
-        public bool IsShowing => gameObject.activeSelf;
-        public void Show() => gameObject.SetActive(true);
+
+        public bool IsShowing => canvasGroup.alpha > 0;
+
+        public void Show()
+        {
+            canvasGroup.alpha = 1;
+            if (isLayoutDirty)
+            {
+                RectTransform panelRect = (RectTransform)inventoryGrid.transform;
+                LayoutRebuilder.ForceRebuildLayoutImmediate(panelRect);
+                CalculateGridCellSize(panelRect);
+            }
+        }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
+            canvasGroup.alpha = 0;
             if (currentlyHeldItem != null)
             {
                 slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
@@ -183,7 +204,7 @@ namespace InventoryDemo.InventorySystem.UI
             if (itemData.Data.IsEquippable)
             {
                 OnEquipItem?.Invoke(itemData);
-            } 
+            }
             else if (itemData.Data.UsableItemBehaviour != null)
             {
                 itemData.Data.UsableItemBehaviour.Use();
