@@ -39,6 +39,7 @@ namespace InventoryDemo.Player
         private Inventory inventory;
         private EquipableItem equippedItem;
         private InputAction cachedMoveAction;
+        private InputAction cachedAttackAction;
 
         private void Awake()
         {
@@ -55,7 +56,8 @@ namespace InventoryDemo.Player
             itemPickuper.OnItemPickedUp += OnItemPickedUp;
 
             actionAsset.FindActionMap("Player").FindAction("Look").performed += OnLook;
-            actionAsset.FindActionMap("Player").FindAction("Attack").performed += OnAttackAction;
+            cachedAttackAction = actionAsset.FindActionMap("Player").FindAction("Attack");
+            cachedAttackAction.performed += OnAttackAction;
             cachedMoveAction = actionAsset.FindActionMap("Player").FindAction("Move");
 
             animationEventListener.OnAttackStarted += AttackStarted;

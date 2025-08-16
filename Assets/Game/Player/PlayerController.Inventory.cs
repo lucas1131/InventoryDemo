@@ -79,15 +79,14 @@ namespace InventoryDemo.Player
 
         private void OpenInventory()
         {
-            actionAsset.FindActionMap("Player").Disable();
-            actionAsset.FindActionMap("Player").FindAction("Interact").Enable(); // Persist the action to close inventory later
+            cachedAttackAction.Disable();
             inventoryController.Show();
             cameraController.LockRotationAndShowMouse();
         }
         
         private void CloseInventory()
         {
-            actionAsset.FindActionMap("Player").Enable();
+            cachedAttackAction.Enable();
             inventoryController.Hide();
             cameraController.UnlockRotationAndHideMouse();
         }
