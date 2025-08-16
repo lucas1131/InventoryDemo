@@ -1,0 +1,16 @@
+{
+    "name": "InventoryDemo.ResourceSystem.Editor",
+    "rootNamespace": "InventoryDemo.ResourceSystem.Editor",
+    "references": ["InventoryDemo.ResourceSystem"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
