@@ -8,7 +8,6 @@ namespace InventoryDemo.Player
         [SerializeField] private GameObject socket;
         private GameObject equippedItem;
 
-
         public void Equip(EquipableItem item)
         {
             Unequip();

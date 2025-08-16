@@ -60,7 +60,7 @@ namespace InventoryDemo.Player
             actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
 
             animationEventListener.OnAttackStarted += AttackStarted;
-            animationEventListener.OnAttackStarted += AttackEnded;
+            animationEventListener.OnAttackEnded += AttackEnded;
 
             SetupInventory();
             CreateEditorDebugEquipment();
@@ -73,7 +73,9 @@ namespace InventoryDemo.Player
             if (editorDebugEquippedItemPrefab != null && !weaponSlot.HasItemEquipped())
             {
                 // We have an item equipped through the editor but nothing attached yet.
-                EquipItem(Instantiate(editorDebugEquippedItemPrefab));
+                EquipableItem newEquip = Instantiate(editorDebugEquippedItemPrefab);
+                EquipItem(newEquip);
+                equippedItem = newEquip;
             }
         }
 
