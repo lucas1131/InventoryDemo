@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4483593724505930}
   - component: {fileID: 33598523913830780}
   - component: {fileID: 23813919065720464}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tree_1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4483593724505930
 Transform:
@@ -52,7 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -99,12 +99,12 @@ GameObject:
   - component: {fileID: 205814739888609900}
   - component: {fileID: 136213828768348902}
   - component: {fileID: 4679125562048684176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tree_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4279449019447086
 Transform:
@@ -170,7 +170,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.81
+  m_Radius: 1.9
   m_Height: 13.23
   m_Direction: 1
   m_Center: {x: 0, y: 4.81, z: 0}
@@ -200,12 +200,12 @@ GameObject:
   - component: {fileID: 4732195966714546}
   - component: {fileID: 33602708680440096}
   - component: {fileID: 23344532469829486}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tree_1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4732195966714546
 Transform:
@@ -241,7 +241,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -287,12 +287,12 @@ GameObject:
   - component: {fileID: 4087411307371584}
   - component: {fileID: 33431926756644316}
   - component: {fileID: 23205771530848140}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tree_1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4087411307371584
 Transform:
@@ -328,7 +328,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
