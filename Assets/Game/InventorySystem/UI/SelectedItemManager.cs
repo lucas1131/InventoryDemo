@@ -23,11 +23,14 @@ namespace Game.InventorySystem.UI
             
             icon.sprite = sprite;
             container.SetActive(true);
+            TooltipManager.Instance.HideTooltip();
         }
 
         public void HideItem()
         {
             container.SetActive(false);
         }
+        
+        public bool IsShowing() => container.activeSelf;
     }
 }

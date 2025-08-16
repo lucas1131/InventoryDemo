@@ -19,7 +19,8 @@ namespace Game.InventorySystem.UI
 
         public void ShowTooltip(string description)
         {
-            if (string.IsNullOrEmpty(description)) return;
+            // Item selection has priority over tooltip
+            if (string.IsNullOrEmpty(description) || SelectedItemManager.Instance.IsShowing()) return;
             
             tooltipText.text = description;
             container.SetActive(true);
