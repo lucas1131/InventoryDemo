@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace InventoryDemo.Items.ItemData
 {
@@ -10,17 +10,26 @@ namespace InventoryDemo.Items.ItemData
         [SerializeField] private List<ItemAsset> items;
         private Dictionary<int, ItemAsset> itemTable;
 
-        public static ItemLibrary Instance { get; private set; }
-
-        private static string path = "Assets/Content/Items/ItemDataAssets/ItemLibrary.asset";
-        private void OnEnable()
+        private static ItemLibrary instance;
+        public static ItemLibrary Instance
         {
-            Instance = AssetDatabase.LoadAssetAtPath<ItemLibrary>(path);
+            get => instance ?? LoadInstance();
+            private set => instance = value;
+        }
 
-            if (Instance == null)
+        private const string Path = "ItemLibrary";
+
+        private static ItemLibrary LoadInstance()
+        {
+            instance = Addressables.LoadAssetAsync<ItemLibrary>(Path).WaitForCompletion();
+
+            if (instance == null)
             {
-                Debug.LogError($"No instance of {nameof(ItemLibrary)} found at {path}!");
+                Debug.LogError($"No instance of {nameof(ItemLibrary)} found at {Path}! Creating an empty one.");
+                instance = CreateInstance<ItemLibrary>();
             }
+            
+            return instance;
         }
 
         public ItemDefinition FindItem(int id)
@@ -42,7 +51,8 @@ namespace InventoryDemo.Items.ItemData
             {
                 if (!table.TryAdd(itemAsset.ItemDefinition.Id, itemAsset))
                 {
-                    Debug.LogError($"Duplicate item id ({itemAsset.ItemDefinition.Id}) found: '{itemAsset.name}' and '{table[itemAsset.ItemDefinition.Id].name}'");
+                    Debug.LogError(
+                        $"Duplicate item id ({itemAsset.ItemDefinition.Id}) found: '{itemAsset.name}' and '{table[itemAsset.ItemDefinition.Id].name}'");
                 }
             }
 
