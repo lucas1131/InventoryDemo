@@ -98,6 +98,7 @@ namespace InventoryDemo.InventorySystem.UI
 
         public void UpdateSlotAt(ItemData itemData, int index)
         {
+            if (itemData.Amount <= 0) itemData = new ItemData();
             slots[index].SetItemData(itemData);
         }
 
