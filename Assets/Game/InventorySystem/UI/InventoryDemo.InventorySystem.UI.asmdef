@@ -1,6 +1,6 @@
 {
     "name": "InventoryDemo.InventorySystem.UI",
-    "rootNamespace": "",
+    "rootNamespace": "InventoryDemo.InventorySystem.UI",
     "references": [
         "InventoryDemo.Items",
         "Unity.TextMeshPro",

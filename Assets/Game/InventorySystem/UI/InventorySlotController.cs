@@ -1,5 +1,4 @@
-﻿using System;
-using InventoryDemo.Items;
+﻿using InventoryDemo.Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,21 +6,24 @@ using UnityEngine.UI;
 
 namespace Game.InventorySystem.UI
 {
-    public class InventorySlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class InventorySlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text amountText;
+        [SerializeField] private Color selectedColor = new(0.6f, 0.6f, 0.6f, 0.8f);
 
         private ItemData itemData;
         private int index;
+        private InventoryMenuController inventoryController;
         public ItemData ItemData => itemData;
 
-        public void SetSlotIndex(int idx)
+        public void Setup(InventoryMenuController inventoryController, int idx)
         {
+            this.inventoryController = inventoryController;
             this.index = idx;
         }
 
-        public void Setup(ItemData inItemData)
+        public void SetItemData(ItemData inItemData)
         {
             itemData = inItemData;
 
@@ -29,8 +31,17 @@ namespace Game.InventorySystem.UI
             icon.enabled = icon.sprite != null;
             amountText.text = inItemData.Amount > 0 ? inItemData.Amount.ToString() : "";
         }
+        
+        public void SetIsSelected(bool isSelected)
+        {
+            icon.color = isSelected ? selectedColor : Color.white;
+        }
 
         public void OnPointerEnter(PointerEventData _) => TooltipManager.Instance.ShowTooltip(itemData.Data.Description);
         public void OnPointerExit(PointerEventData _) => TooltipManager.Instance.HideTooltip();
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            inventoryController.OnSlotClicked(index, itemData);
+        }
     }
 }

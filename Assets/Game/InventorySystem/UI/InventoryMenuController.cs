@@ -14,6 +14,8 @@ namespace Game.InventorySystem.UI
         private List<InventorySlotController> slots = new();
         private int totalRows;
         private int totalColumns;
+        private Inventory inventory;
+        private (ItemData itemData, int slotIndex)? currentlyHeldItem;
 
         private void Awake()
         {
@@ -22,6 +24,7 @@ namespace Game.InventorySystem.UI
         
         public void Setup(Inventory inventory, int rows, int columns)
         {
+            this.inventory = inventory;
             inventory.OnInventorySlotUpdatedEvent += UpdateSlotAt;
             totalRows = rows;
             totalColumns = columns;
@@ -46,14 +49,14 @@ namespace Game.InventorySystem.UI
             for (int i = 0; i < rows*columns; i++)
             {
                 InventorySlotController slot = Instantiate(slotPrefab, panelTransform);
-                slot.SetSlotIndex(i);
+                slot.Setup(this, i);
                 slots.Add(slot);
             }
         }
 
         public void UpdateSlotAt(ItemData itemData, int index)
         {
-            slots[index].Setup(itemData);
+            slots[index].SetItemData(itemData);
         }
 
         private void ClearAllChildren()
@@ -70,8 +73,51 @@ namespace Game.InventorySystem.UI
             }
         }
 
-        public void Show() => gameObject.SetActive(true);
-        public void Hide() => gameObject.SetActive(false);
         public bool IsShowing => gameObject.activeSelf;
+        public void Show() => gameObject.SetActive(true);
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+            if (currentlyHeldItem != null)
+            {
+                slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
+                currentlyHeldItem = null;
+            }
+        }
+
+
+        public void OnSlotClicked(int index, ItemData itemData)
+        {
+            if (currentlyHeldItem == null)
+            {
+                if (itemData.Amount <= 0) return; // Empty slot and we dont have any selection, nothing to do
+                
+                currentlyHeldItem = (itemData, index);
+                slots[index].SetIsSelected(true);
+                SelectedItemManager.Instance.ShowItem(itemData.Data.Icon);
+            }
+            else
+            {
+                ItemData swappedItem = SwapItems(currentlyHeldItem.Value, index, itemData);
+                if (swappedItem.Amount <= 0)
+                {
+                    // Stacked and no leftover
+                    slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
+                    currentlyHeldItem = null;
+                    SelectedItemManager.Instance.HideItem();
+                }
+                else
+                {
+                    // We either have leftover items or simply swapped two different items
+                    currentlyHeldItem = (swappedItem, currentlyHeldItem.Value.slotIndex);
+                    SelectedItemManager.Instance.ShowItem(itemData.Data.Icon);
+                }
+            }
+        }
+
+        private ItemData SwapItems((ItemData itemData, int slotIndex) currentItem, int newItemIndex, ItemData newItemData)
+        {
+            return inventory.SwapItems(currentItem, (newItemData, newItemIndex));
+        }
     }
 }
