@@ -5,7 +5,8 @@
         "InventoryDemo.Items",
         "Unity.TextMeshPro",
         "InventoryDemo.InventorySystem",
-        "InventoryDemo.Items.ItemData"
+        "InventoryDemo.Items.ItemData",
+        "InventoryDemo.SaveSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

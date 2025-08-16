@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Game.SaveSystem;
 using InventoryDemo.InventorySystem;
 using InventoryDemo.Items;
 using UnityEngine;
@@ -134,7 +135,7 @@ namespace Game.InventorySystem.UI
                 }
             }
 
-            // TODO update save here
+            inventory.SaveInventory();
         }
 
         private void DeSelectItem()
