@@ -1,10 +1,9 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // This file should be in an Editor only assembly
-namespace Game.ResourceSystem
+namespace InventoryDemo.ResourceSystem
 {
     [CustomEditor(typeof(ReplaceTerrainTreesWithRealTrees))]
     public class ReplaceTerrainTreesWithRealTreesEditor : Editor

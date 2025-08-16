@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Game.SaveSystem;
-using InventoryDemo.InventorySystem;
-using InventoryDemo.Items;
+using InventoryDemo.Items.ItemData;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.InventorySystem.UI
+namespace InventoryDemo.InventorySystem.UI
 {
     public class InventoryMenuController : MonoBehaviour
     {

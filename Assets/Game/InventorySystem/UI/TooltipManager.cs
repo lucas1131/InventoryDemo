@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Game.InventorySystem.UI
+namespace InventoryDemo.InventorySystem.UI
 {
     public class TooltipManager
     {

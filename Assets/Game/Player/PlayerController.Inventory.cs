@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Game.InventorySystem.UI;
-using Game.SaveSystem;
-using InventoryDemo.Items;
+using InventoryDemo.InventorySystem.UI;
+using InventoryDemo.Items.ItemData;
+using InventoryDemo.SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

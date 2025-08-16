@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace InventoryDemo.Items
+namespace InventoryDemo.Items.ItemData
 {
     [Serializable]
     public struct ItemDefinition : IEquatable<ItemDefinition>

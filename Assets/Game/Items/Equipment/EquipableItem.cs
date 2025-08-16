@@ -1,7 +1,7 @@
-using Game.ResourceSystem;
+using InventoryDemo.ResourceSystem;
 using UnityEngine;
 
-namespace InventoryDemo.Items
+namespace InventoryDemo.Equipment
 {
     public class EquipableItem : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-﻿using InventoryDemo.Items;
+﻿using InventoryDemo.Items.ItemData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Game.InventorySystem.UI
+namespace InventoryDemo.InventorySystem.UI
 {
     public class InventorySlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {

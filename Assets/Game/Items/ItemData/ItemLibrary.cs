@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace InventoryDemo.Items
+namespace InventoryDemo.Items.ItemData
 {
     [CreateAssetMenu(fileName = "ItemLibrary", menuName = "InventoryDemo/ItemLibrary")]
     public class ItemLibrary : ScriptableObject

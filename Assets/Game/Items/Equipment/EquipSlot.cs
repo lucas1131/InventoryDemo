@@ -1,7 +1,7 @@
 ﻿using InventoryDemo.Items;
 using UnityEngine;
 
-namespace InventoryDemo.Player
+namespace InventoryDemo.Equipment
 {
     public class EquipSlot : MonoBehaviour
     {

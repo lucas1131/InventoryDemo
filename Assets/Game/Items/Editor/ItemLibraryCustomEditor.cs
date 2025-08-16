@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InventoryDemo.Items.ItemData;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using InventoryDemo.Items;
+using InventoryDemo.Items.ItemData;
 using UnityEngine;
 
-namespace Game.SaveSystem
+namespace InventoryDemo.SaveSystem
 {
     public class SaveData
     {

@@ -1,7 +1,7 @@
 ﻿using InventoryDemo.Items;
 using UnityEngine;
 
-namespace Game.ResourceSystem
+namespace InventoryDemo.ResourceSystem
 {
     // The spawn and damage logic could be separated into two different components, with the damage component only triggering a DamageTaken event
     public class DamageableResource : MonoBehaviour

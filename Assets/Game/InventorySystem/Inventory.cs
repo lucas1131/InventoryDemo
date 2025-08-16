@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Game.SaveSystem;
 using UnityEngine;
-using InventoryDemo.Items;
+using InventoryDemo.Items.ItemData;
+using InventoryDemo.SaveSystem;
 
 namespace InventoryDemo.InventorySystem
 {

@@ -1,5 +1,6 @@
 using System;
-using Game.SaveSystem;
+using InventoryDemo.Items.ItemData;
+using InventoryDemo.SaveSystem;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,12 +8,12 @@ namespace InventoryDemo.Items
 {
     public class PickableItem : MonoBehaviour
     {
-        [SerializeField] private ItemData item;
+        [SerializeField] private ItemData.ItemData item;
         [SerializeField] private ItemAsset itemAsset;
         [SerializeField] private Rigidbody rb; 
         private bool queryDone = false;
 
-        private readonly float snapToGroundHeight = 5f;
+        private const float SnapToGroundHeight = 5f;
         public Rigidbody Rigidbody => rb; 
 
         private void Awake()
@@ -54,7 +55,7 @@ namespace InventoryDemo.Items
 
         private void OnDrawGizmosSelected()
         {
-            Vector3 origin = transform.position + Vector3.up * snapToGroundHeight;
+            Vector3 origin = transform.position + Vector3.up * SnapToGroundHeight;
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(origin, .1f);
             Debug.DrawRay(origin, Vector3.down * 100f, Color.green);
@@ -68,7 +69,7 @@ namespace InventoryDemo.Items
         private void SnapToGround()
         {
             // Try to snap a bit above the object
-            Vector3 origin = transform.position + Vector3.up * snapToGroundHeight;
+            Vector3 origin = transform.position + Vector3.up * SnapToGroundHeight;
             if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain")))
             {
                 float extentsY = GetComponent<BoxCollider>()?.bounds.extents.y ?? 0;
@@ -94,7 +95,7 @@ namespace InventoryDemo.Items
             }
         }
 
-        public ItemData GetItemData() => item;
+        public ItemData.ItemData GetItemData() => item;
         public void SetAmount(int inAmount) => item.Amount = inAmount;
 
         public void Destroy()
