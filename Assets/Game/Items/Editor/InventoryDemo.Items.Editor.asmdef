@@ -1,4 +1,3 @@
-﻿
 {
     "name": "InventoryDemo.Items.Editor",
     "rootNamespace": "InventoryDemo.Items.Editor",
@@ -6,7 +5,9 @@
         "InventoryDemo.Items.ItemData",
         "InventoryDemo.Items"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

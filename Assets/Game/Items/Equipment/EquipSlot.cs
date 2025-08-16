@@ -16,9 +16,10 @@ namespace InventoryDemo.Equipment
             item.transform.SetParent(socket.transform, false);
             item.transform.localPosition = Vector3.zero;
             item.transform.localRotation = Quaternion.identity;
+            equippedItem = item.gameObject;
         }
 
-        private void Unequip()
+        public void Unequip()
         {
             if (equippedItem == null) return;
             

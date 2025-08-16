@@ -83,7 +83,19 @@ namespace InventoryDemo.Player
         
         private void InventoryItemEquipRequest(ItemData itemData)
         {
-            EquipItem(Instantiate(itemData.Data.EquippableItemPrefab).GetComponent<EquipableItem>());
+            // Trying to equip same item, unequip
+            if (equippedItem != null && equippedItem.InstanceId == itemData.InstanceId)
+            {
+                weaponSlot.Unequip();
+                equippedItem = null;
+            }
+            else
+            {
+                EquipableItem equippableItem = Instantiate(itemData.Data.EquippableItemPrefab).GetComponent<EquipableItem>();
+                equippableItem.InstanceId = itemData.InstanceId;
+                EquipItem(equippableItem);
+                equippedItem = equippableItem;
+            }
         }
     }
 }

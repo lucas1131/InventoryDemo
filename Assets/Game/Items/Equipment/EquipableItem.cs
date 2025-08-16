@@ -8,12 +8,13 @@ namespace InventoryDemo.Equipment
         [SerializeField] private GameObject pivot;
         [SerializeField] private Collider hitbox;
         public GameObject Pivot => pivot;
+        public string InstanceId;
 
         private void Awake()
         {
             if (hitbox != null) hitbox.enabled = false;
         }
-
+        
         public void Activate() => hitbox.enabled = true;
         public void Deactivate() => hitbox.enabled = false;
         // TODO make a counterpart for the itemDefinition for equipmentItemDefinition that we can use to set default values like damage or even durability
