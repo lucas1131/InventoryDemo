@@ -10,10 +10,17 @@ namespace InventoryDemo.Items
         [SerializeField] private List<ItemAsset> items;
         private Dictionary<int, ItemAsset> itemTable;
 
-        public static ItemLibrary Instance { get; private set; } 
-        private ItemLibrary()
+        public static ItemLibrary Instance { get; private set; }
+
+        private static string path = "Assets/Content/Items/ItemDataAssets/ItemLibrary.asset";
+        private void OnEnable()
         {
-            Instance = this;
+            Instance = AssetDatabase.LoadAssetAtPath<ItemLibrary>(path);
+
+            if (Instance == null)
+            {
+                Debug.LogError($"No instance of {nameof(ItemLibrary)} found at {path}!");
+            }
         }
 
         public ItemDefinition FindItem(int id)
