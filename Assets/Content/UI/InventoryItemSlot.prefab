@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1748434068642325715}
   amountText: {fileID: 5105306675425385803}
+  selectedColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.8}
 --- !u!1 &9114645804162533059
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,11 +200,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5838482625625295145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14, y: -19.116}
-  m_SizeDelta: {x: 28, y: 17.769}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 39.9871, y: 22.4596}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &6896225721805009008
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -259,12 +260,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.4
+  m_fontSize: 20.1
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 32
+  m_fontSizeMax: 50
   m_fontStyle: 1
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
