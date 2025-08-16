@@ -147,7 +147,7 @@ namespace InventoryDemo.InventorySystem
             BroadcastSlotUpdated(idx, inventory[idx]);
         }
 
-        private void RemoveAmountAt(int idx, int amount)
+        public void RemoveAmountAt(int idx, int amount)
         {
             inventory[idx].Amount -= amount;
             BroadcastSlotUpdated(idx, inventory[idx]);

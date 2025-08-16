@@ -4,11 +4,11 @@
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:3d3a3a1014bb9be448910cf022867b4d",
+        "GUID:e8d29796d1d144cbac47410274162f68",
+        "GUID:70ce715d5f5d41048b60f3d7faab2dd4",
         "GUID:487dc6bb6960d134884c67e4234e09d2",
-        "InventoryDemo.InventorySystem.UI",
-        "InventoryDemo.SaveSystem",
-        "InventoryDemo.Items.ItemData",
-        "InventoryDemo.Equipment"
+        "GUID:b49195f058f83cd4abaf073d5912dd75",
+        "GUID:0c60261ccccade14782424bbe1c082d2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

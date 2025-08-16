@@ -187,6 +187,7 @@ namespace InventoryDemo.InventorySystem.UI
             else if (itemData.Data.UsableItemBehaviour != null)
             {
                 itemData.Data.UsableItemBehaviour.Use();
+                inventory.RemoveAmountAt(index, 1);
             }
         }
     }

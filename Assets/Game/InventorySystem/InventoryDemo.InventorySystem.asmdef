@@ -1,14 +1,17 @@
 {
-    "name": "InventoryDemo.InventorySystem",
-    "rootNamespace": "InventoryDemo.InventorySystem",
-    "references": ["InventoryDemo.Items.ItemData","InventoryDemo.SaveSystem"],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "InventoryDemo.InventorySystem",
+  "rootNamespace": "InventoryDemo.InventorySystem",
+  "references": [
+    "InventoryDemo.Items.ItemData",
+    "InventoryDemo.SaveSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
