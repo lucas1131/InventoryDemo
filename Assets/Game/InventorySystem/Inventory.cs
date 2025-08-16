@@ -20,7 +20,7 @@ namespace InventoryDemo.InventorySystem
 
         public event OnInventorySlotUpdated OnInventorySlotUpdatedEvent;
 
-        private void Start()
+        private void Awake()
         {
             inventory = new ItemData[inventoryRows * inventoryColumns];
         }
@@ -45,6 +45,7 @@ namespace InventoryDemo.InventorySystem
 
             return -1;
         }
+
 
         private int FindItemIndex(ItemData item)
         {
