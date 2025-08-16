@@ -41,7 +41,14 @@ namespace InventoryDemo.InventorySystem.UI
         public void OnPointerExit(PointerEventData _) => TooltipManager.Instance.HideTooltip();
         public void OnPointerClick(PointerEventData eventData)
         {
-            inventoryController.OnSlotClicked(index, itemData);
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                inventoryController.OnSlotClicked(index, itemData);
+            }
+            else
+            {
+                // Use/equip item
+            }
         }
     }
 }

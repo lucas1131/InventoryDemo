@@ -87,6 +87,12 @@ namespace InventoryDemo.InventorySystem
             return true;
         }
 
+        private void AddItemAt(int idx, ItemData addedItem)
+        {
+            inventory[idx] = addedItem;
+            BroadcastSlotUpdated(idx, inventory[idx]);
+        }
+
         private int StackItems(int indexToStack, ItemData itemToAdd, out ItemData leftoverItem)
         {
             leftoverItem = itemToAdd;
@@ -135,12 +141,18 @@ namespace InventoryDemo.InventorySystem
             return true;
         }
 
+        public void RemoveItemAt(int idx)
+        {
+            inventory[idx] = new ItemData();
+            BroadcastSlotUpdated(idx, inventory[idx]);
+        }
+
         private void RemoveAmountAt(int idx, int amount)
         {
             inventory[idx].Amount -= amount;
             BroadcastSlotUpdated(idx, inventory[idx]);
         }
-        
+
         public ItemData SwapItems((ItemData data, int idx) item1, (ItemData data, int idx) item2)
         {
             /*
@@ -178,6 +190,16 @@ namespace InventoryDemo.InventorySystem
             SaveData data = SaveManager.GetCachedData();
             data.Items = inventory.ToList();
             SaveManager.Save(data);
+        }
+
+        public void LoadInventory(List<ItemData> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                ItemData item = items[i];
+                if(item.Amount <= 0) item = new ItemData();
+                AddItemAt(i, item);
+            }
         }
     }
 }

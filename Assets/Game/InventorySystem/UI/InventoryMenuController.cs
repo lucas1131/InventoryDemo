@@ -9,6 +9,7 @@ namespace InventoryDemo.InventorySystem.UI
     {
         [SerializeField] private GridLayoutGroup inventoryGrid;
         [SerializeField] private InventorySlotController slotPrefab;
+        [SerializeField] private ThrowItemPanel throwItemPanel;
 
         private List<InventorySlotController> slots = new();
         private int totalRows;
@@ -25,6 +26,7 @@ namespace InventoryDemo.InventorySystem.UI
         {
             this.inventory = inventory;
             inventory.OnInventorySlotUpdatedEvent += UpdateSlotAt;
+            throwItemPanel.OnClicked += ThrowSelectedItem;
             totalRows = rows;
             totalColumns = columns;
             RectTransform panelTransform = (RectTransform)inventoryGrid.transform;
@@ -51,6 +53,28 @@ namespace InventoryDemo.InventorySystem.UI
                 slot.Setup(this, i);
                 slots.Add(slot);
             }
+        }
+
+        private void ThrowSelectedItem()
+        {
+            if (currentlyHeldItem == null) return;
+
+            Vector3 playerForward = inventory.gameObject.transform.forward + inventory.gameObject.transform.up*0.5f; // aim a little bit higher
+            Vector3 spawnOrigin = inventory.gameObject.transform.position;
+            const float spawnOffset = 2;
+            Vector3 spawnLocation = spawnOrigin + playerForward * spawnOffset;
+                
+            GameObject item = Instantiate(currentlyHeldItem.Value.itemData.Data.ItemPrefab, spawnLocation, Quaternion.identity);
+            
+            // Inventory is attached to player, so this should throw forward
+            Rigidbody rb = item.GetComponent<Rigidbody>();
+            if (rb)
+            {
+                rb.AddForce(playerForward * 3f, ForceMode.VelocityChange);
+            }
+            inventory.RemoveItemAt(currentlyHeldItem.Value.slotIndex);
+            inventory.SaveInventory();
+            DeSelectItem();
         }
 
         public void UpdateSlotAt(ItemData itemData, int index)

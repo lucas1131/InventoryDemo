@@ -18,12 +18,7 @@ namespace InventoryDemo.Player
         private void SetupInventory()
         {
             List<ItemData> items = LoadInventoryData();
-            foreach (ItemData item in items)
-            {
-                // There shouldn't be any leftover from save file, unless we update item definitions over multiple versions
-                inventory.AddItem(item, out ItemData _); 
-            }
-            
+            inventory.LoadInventory(items);
             SetupInventoryMenu(inventory.GetItems());
             SetupUIActions();
             CloseInventory();
