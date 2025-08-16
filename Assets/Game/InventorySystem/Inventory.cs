@@ -60,12 +60,13 @@ namespace InventoryDemo.InventorySystem
         public bool AddItem(ItemData addedItem, out ItemData leftoverItem)
         {
             leftoverItem = addedItem;
-            int leftovers = StackItems(addedItem, ref leftoverItem);
+            int idx = FindItemIndex(addedItem);
+            int leftovers = StackItems(idx, addedItem, ref leftoverItem);
 
             if (leftovers > 0)
             {
                 Debug.Log($"Item {addedItem.Data.Name} hit max stack, trying to add x{leftovers} leftovers to another slot.");
-                int idx = FindFirstEmptySlot();
+                idx = FindFirstEmptySlot();
                 // No more space for leftovers
                 if (idx < 0)
                 {
@@ -84,20 +85,19 @@ namespace InventoryDemo.InventorySystem
             return true;
         }
 
-        private int StackItems(ItemData addedItem, ref ItemData leftoverItem)
+        private int StackItems(int indexToStack, ItemData addedItem, ref ItemData leftoverItem)
         {
             int leftovers = addedItem.Amount;
-            int idx = FindItemIndex(addedItem);
 
             // Item already in inventory, increment amount
-            if (idx >= 0)
+            if (indexToStack >= 0)
             {
-                int calculatedAmount = inventory[idx].Amount + addedItem.Amount;
-                leftovers = calculatedAmount - inventory[idx].Data.MaxStack;
-                inventory[idx].Amount = Mathf.Clamp(calculatedAmount, 0, inventory[idx].Data.MaxStack);
+                int calculatedAmount = inventory[indexToStack].Amount + addedItem.Amount;
+                leftovers = calculatedAmount - inventory[indexToStack].Data.MaxStack;
+                inventory[indexToStack].Amount = Mathf.Clamp(calculatedAmount, 0, inventory[indexToStack].Data.MaxStack);
                 leftoverItem.Amount = Mathf.Max(leftovers, 0);
 
-                BroadcastSlotUpdated(idx, inventory[idx]);
+                BroadcastSlotUpdated(indexToStack, inventory[indexToStack]);
             }
 
             return leftovers;
@@ -144,7 +144,7 @@ namespace InventoryDemo.InventorySystem
             if (item1.data.Data.Id == item2.data.Data.Id)
             {
                 ItemData leftovers = item1.data;
-                StackItems(item1.data, ref leftovers);
+                StackItems(item2.idx, item1.data, ref leftovers);
                 return leftovers;
             }
             else
@@ -156,6 +156,8 @@ namespace InventoryDemo.InventorySystem
         private ItemData SwapItemsInternal((ItemData data, int idx) item1, (ItemData data, int idx) item2)
         {
             (inventory[item1.idx], inventory[item2.idx]) = (item2.data, item1.data);
+            BroadcastSlotUpdated(item1.idx, item1.data);
+            BroadcastSlotUpdated(item2.idx, item2.data);
             return item2.data;
         }
 

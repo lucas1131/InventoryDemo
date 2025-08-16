@@ -85,7 +85,6 @@ namespace Game.InventorySystem.UI
             }
         }
 
-
         public void OnSlotClicked(int index, ItemData itemData)
         {
             if (currentlyHeldItem == null)
@@ -98,13 +97,18 @@ namespace Game.InventorySystem.UI
             }
             else
             {
+                // Held item and new slot are the same slot, deselect item and do nothing
+                if (currentlyHeldItem.Value.slotIndex == index)
+                {
+                    DeSelectItem();
+                    return;
+                } 
+                
                 ItemData swappedItem = SwapItems(currentlyHeldItem.Value, index, itemData);
                 if (swappedItem.Amount <= 0)
                 {
                     // Stacked and no leftover
-                    slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
-                    currentlyHeldItem = null;
-                    SelectedItemManager.Instance.HideItem();
+                    DeSelectItem();
                 }
                 else
                 {
@@ -113,6 +117,15 @@ namespace Game.InventorySystem.UI
                     SelectedItemManager.Instance.ShowItem(itemData.Data.Icon);
                 }
             }
+        }
+
+        private void DeSelectItem()
+        {
+            if (currentlyHeldItem == null) return;
+            
+            slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
+            currentlyHeldItem = null;
+            SelectedItemManager.Instance.HideItem();
         }
 
         private ItemData SwapItems((ItemData itemData, int slotIndex) currentItem, int newItemIndex, ItemData newItemData)
