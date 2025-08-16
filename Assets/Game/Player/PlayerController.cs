@@ -141,6 +141,7 @@ namespace InventoryDemo.Player
             if (inventory.AddItem(item.GetItemData(), out ItemData leftoverItem) && leftoverItem.Amount <= 0)
             {
                 Debug.Log($"Picked up everything, destroying item.");
+                item.gameObject.SetActive(false); // testing if somehow im getting double collision event
                 item.Destroy();
             }
             else
