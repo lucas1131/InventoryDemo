@@ -55,7 +55,7 @@ namespace InventoryDemo.Player
 
         private void SetupUIActions()
         {
-            // actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
+            actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
         }
 
         private void UpdateSaveWithInventoryData()
@@ -79,12 +79,15 @@ namespace InventoryDemo.Player
 
         private void OpenInventory()
         {
+            actionAsset.FindActionMap("Player").Disable();
+            actionAsset.FindActionMap("Player").FindAction("Interact").Enable(); // Persist the action to close inventory later
             inventoryController.Show();
             cameraController.LockRotationAndShowMouse();
         }
         
         private void CloseInventory()
         {
+            actionAsset.FindActionMap("Player").Enable();
             inventoryController.Hide();
             cameraController.UnlockRotationAndHideMouse();
         }

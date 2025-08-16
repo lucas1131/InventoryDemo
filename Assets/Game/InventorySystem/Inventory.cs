@@ -145,6 +145,12 @@ namespace InventoryDemo.InventorySystem
             {
                 ItemData leftovers = item1.data;
                 StackItems(item2.idx, item1.data, ref leftovers);
+
+                if (leftovers.Amount <= 0)
+                {
+                    BroadcastSlotUpdated(item1.idx, new ItemData()); // Update with empty to clear icons
+                }
+                
                 return leftovers;
             }
             else
@@ -156,8 +162,8 @@ namespace InventoryDemo.InventorySystem
         private ItemData SwapItemsInternal((ItemData data, int idx) item1, (ItemData data, int idx) item2)
         {
             (inventory[item1.idx], inventory[item2.idx]) = (item2.data, item1.data);
-            BroadcastSlotUpdated(item1.idx, item1.data);
-            BroadcastSlotUpdated(item2.idx, item2.data);
+            BroadcastSlotUpdated(item1.idx, item2.data);
+            BroadcastSlotUpdated(item2.idx, item1.data);
             return item2.data;
         }
 

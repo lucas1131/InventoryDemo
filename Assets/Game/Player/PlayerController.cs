@@ -57,7 +57,6 @@ namespace InventoryDemo.Player
             actionAsset.FindActionMap("Player").FindAction("Look").performed += OnLook;
             actionAsset.FindActionMap("Player").FindAction("Attack").performed += OnAttackAction;
             cachedMoveAction = actionAsset.FindActionMap("Player").FindAction("Move");
-            actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
 
             animationEventListener.OnAttackStarted += AttackStarted;
             animationEventListener.OnAttackEnded += AttackEnded;
