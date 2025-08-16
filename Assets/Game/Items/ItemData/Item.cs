@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace InventoryDemo.Items.ItemData
 {
@@ -11,7 +12,14 @@ namespace InventoryDemo.Items.ItemData
         public string Name;
         public string Description;
         public Sprite Icon;
-        public GameObject ItemPrefab;
+        
+        // These two prefabs should really be the same, but as I am no artist and cant really edit meshes to make these fit properly for
+        // character and world, im currently using separate prefabs for them. 
+        // Ideally, the only difference should be which components to enable, pickable or equippable (or usable when implemented)
+        [FormerlySerializedAs("ItemPrefab")] public GameObject PickableItemPrefab;
+        public bool IsEquippable;
+        public GameObject EquippableItemPrefab;
+        public UsableItem UsableItemBehaviour;
 
         public override int GetHashCode() => Id;
         public bool Equals(ItemDefinition other) => this.Id == other.Id;

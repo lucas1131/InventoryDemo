@@ -47,7 +47,7 @@ namespace InventoryDemo.InventorySystem.UI
             }
             else
             {
-                // Use/equip item
+                inventoryController.OnTryUseItem(index, itemData);
             }
         }
     }

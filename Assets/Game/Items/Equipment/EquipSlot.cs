@@ -1,5 +1,4 @@
-﻿using InventoryDemo.Items;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace InventoryDemo.Equipment
 {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using InventoryDemo.Equipment;
 using InventoryDemo.InventorySystem.UI;
 using InventoryDemo.Items.ItemData;
 using InventoryDemo.SaveSystem;
@@ -45,6 +46,8 @@ namespace InventoryDemo.Player
                 ItemData item = items[i];
                 inventoryController.UpdateSlotAt(item, i);
             }
+
+            inventoryController.OnEquipItem += InventoryItemEquipRequest;
         }
 
         private void SetupUIActions()
@@ -76,6 +79,11 @@ namespace InventoryDemo.Player
             cachedAttackAction.Enable();
             inventoryController.Hide();
             cameraController.UnlockRotationAndHideMouse();
+        }
+        
+        private void InventoryItemEquipRequest(ItemData itemData)
+        {
+            EquipItem(Instantiate(itemData.Data.EquippableItemPrefab).GetComponent<EquipableItem>());
         }
     }
 }

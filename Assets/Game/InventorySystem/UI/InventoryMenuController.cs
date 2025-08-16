@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using InventoryDemo.Items.ItemData;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ namespace InventoryDemo.InventorySystem.UI
 {
     public class InventoryMenuController : MonoBehaviour
     {
+        public delegate void OnEquipItemDelegate(ItemData itemData);
+        public event OnEquipItemDelegate OnEquipItem;
+        
         [SerializeField] private GridLayoutGroup inventoryGrid;
         [SerializeField] private InventorySlotController slotPrefab;
         [SerializeField] private ThrowItemPanel throwItemPanel;
@@ -20,6 +24,11 @@ namespace InventoryDemo.InventorySystem.UI
         private void Awake()
         {
             ClearAllChildren();
+        }
+
+        private void OnDestroy()
+        {
+            OnEquipItem = null;
         }
 
         public void Setup(Inventory inventory, int rows, int columns)
@@ -64,7 +73,7 @@ namespace InventoryDemo.InventorySystem.UI
             const float spawnOffset = 2;
             Vector3 spawnLocation = spawnOrigin + playerForward * spawnOffset;
                 
-            GameObject item = Instantiate(currentlyHeldItem.Value.itemData.Data.ItemPrefab, spawnLocation, Quaternion.identity);
+            GameObject item = Instantiate(currentlyHeldItem.Value.itemData.Data.PickableItemPrefab, spawnLocation, Quaternion.identity);
             
             // Inventory is attached to player, so this should throw forward
             Rigidbody rb = item.GetComponent<Rigidbody>();
@@ -167,6 +176,18 @@ namespace InventoryDemo.InventorySystem.UI
             slots[currentlyHeldItem.Value.slotIndex].SetIsSelected(false);
             currentlyHeldItem = null;
             SelectedItemManager.Instance.HideItem();
+        }
+
+        public void OnTryUseItem(int index, ItemData itemData)
+        {
+            if (itemData.Data.IsEquippable)
+            {
+                OnEquipItem?.Invoke(itemData);
+            } 
+            else if (itemData.Data.UsableItemBehaviour != null)
+            {
+                itemData.Data.UsableItemBehaviour.Use();
+            }
         }
     }
 }
