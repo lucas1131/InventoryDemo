@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Game.SaveSystem;
 using UnityEngine;
 using InventoryDemo.Items;
 
@@ -61,7 +63,7 @@ namespace InventoryDemo.InventorySystem
         {
             leftoverItem = addedItem;
             int idx = FindItemIndex(addedItem);
-            int leftovers = StackItems(idx, addedItem, ref leftoverItem);
+            int leftovers = StackItems(idx, addedItem, out leftoverItem);
 
             if (leftovers > 0)
             {
@@ -85,14 +87,15 @@ namespace InventoryDemo.InventorySystem
             return true;
         }
 
-        private int StackItems(int indexToStack, ItemData addedItem, ref ItemData leftoverItem)
+        private int StackItems(int indexToStack, ItemData itemToAdd, out ItemData leftoverItem)
         {
-            int leftovers = addedItem.Amount;
+            leftoverItem = itemToAdd;
+            int leftovers = itemToAdd.Amount;
 
             // Item already in inventory, increment amount
             if (indexToStack >= 0)
             {
-                int calculatedAmount = inventory[indexToStack].Amount + addedItem.Amount;
+                int calculatedAmount = inventory[indexToStack].Amount + itemToAdd.Amount;
                 leftovers = calculatedAmount - inventory[indexToStack].Data.MaxStack;
                 inventory[indexToStack].Amount = Mathf.Clamp(calculatedAmount, 0, inventory[indexToStack].Data.MaxStack);
                 leftoverItem.Amount = Mathf.Max(leftovers, 0);
@@ -132,6 +135,12 @@ namespace InventoryDemo.InventorySystem
             return true;
         }
 
+        private void RemoveAmountAt(int idx, int amount)
+        {
+            inventory[idx].Amount -= amount;
+            BroadcastSlotUpdated(idx, inventory[idx]);
+        }
+        
         public ItemData SwapItems((ItemData data, int idx) item1, (ItemData data, int idx) item2)
         {
             /*
@@ -143,14 +152,9 @@ namespace InventoryDemo.InventorySystem
                 */
             if (item1.data.Data.Id == item2.data.Data.Id)
             {
-                ItemData leftovers = item1.data;
-                StackItems(item2.idx, item1.data, ref leftovers);
-
-                if (leftovers.Amount <= 0)
-                {
-                    BroadcastSlotUpdated(item1.idx, new ItemData()); // Update with empty to clear icons
-                }
-                
+                int leftoverAmount = StackItems(item2.idx, item1.data, out ItemData leftovers);
+                RemoveAmountAt(item1.idx, item1.data.Amount - leftoverAmount);
+                BroadcastSlotUpdated(item1.idx, leftovers.Amount <= 0 ? new ItemData() : leftovers);
                 return leftovers;
             }
             else
@@ -168,5 +172,12 @@ namespace InventoryDemo.InventorySystem
         }
 
         public IReadOnlyList<ItemData> GetItems() => inventory;
+
+        public void SaveInventory()
+        {
+            SaveData data = SaveManager.GetCachedData();
+            data.Items = inventory.ToList();
+            SaveManager.Save(data);
+        }
     }
 }

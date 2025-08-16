@@ -4,7 +4,6 @@ using InventoryDemo.InventorySystem;
 using InventoryDemo.Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace InventoryDemo.Player
 {
@@ -147,7 +146,7 @@ namespace InventoryDemo.Player
                 item.SetAmount(leftoverItem.Amount);
             }
 
-            UpdateSaveWithInventoryData();
+            inventory.SaveInventory();
         }
 
         #region Attack

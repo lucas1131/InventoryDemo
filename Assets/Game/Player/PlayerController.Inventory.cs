@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Game.InventorySystem.UI;
 using Game.SaveSystem;
 using InventoryDemo.Items;
@@ -56,13 +55,6 @@ namespace InventoryDemo.Player
         private void SetupUIActions()
         {
             actionAsset.FindActionMap("Player").FindAction("Interact").performed += ToggleInventory;
-        }
-
-        private void UpdateSaveWithInventoryData()
-        {
-            SaveData data = SaveManager.GetCachedData();
-            data.Items = inventory.GetItems().ToList();
-            SaveManager.Save(data);
         }
 
         private void ToggleInventory(InputAction.CallbackContext _)
